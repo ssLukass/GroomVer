@@ -6,14 +6,14 @@ public class User {
 
     private String password;
 
-    private String phoneNumber;
+    private String userEmail;
 
     private String key;
 
-    public User(String userName, String password, String phoneNumber) {
+    public User(String userName, String password, String userEmail) {
         this.userName = userName;
         this.password = password;
-        this.phoneNumber = phoneNumber;
+        this.userEmail = userEmail;
     }
 
     public User(){
@@ -28,8 +28,8 @@ public class User {
         return this.password;
     }
 
-    public String getPhoneNumber(){
-        return this.phoneNumber;
+    public String getUserEmail(){
+        return this.userEmail;
     }
 
     public void setUserName(String userName){
@@ -41,7 +41,7 @@ public class User {
     }
 
     public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber = phoneNumber;
+        this.userEmail = phoneNumber;
     }
 
     public void setKey(String key){

@@ -34,19 +34,19 @@
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
         android:src="@drawable/groomver_icon_round"
-        app:layout_constraintBottom_toTopOf="@+id/enter_number_phone"
+        app:layout_constraintBottom_toTopOf="@+id/enter_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view" />
 
     <EditText
-        android:id="@+id/enter_number_phone"
+        android:id="@+id/enter_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="224dp"
         android:background="@drawable/input_design"
         android:hint="@string/Login"
-        android:inputType="number"
+        android:inputType="text"
         android:padding="15dp"
         android:textColorHint="#8E8E8E"
         android:textSize="20sp"
@@ -66,7 +66,7 @@
         android:textColorHint="#8E8E8E"
         android:textSize="20sp"
         android:textStyle="italic"
-        app:layout_constraintTop_toBottomOf="@+id/enter_number_phone"
+        app:layout_constraintTop_toBottomOf="@+id/enter_email"
         tools:layout_editor_absoluteX="0dp" />
 
     <EditText

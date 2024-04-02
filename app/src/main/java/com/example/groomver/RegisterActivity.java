@@ -24,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private Button registerButton;
-    private EditText etEnterNumberPhone, etNameInput, etCreatePassword, etRepeatPassword;
+    private EditText etEmail, etNameInput, etCreatePassword, etRepeatPassword;
 
     private FirebaseDatabase db;
 
@@ -34,31 +34,26 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        db = FirebaseDatabase.getInstance("https://authtest-f946a-default-rtdb.europe-west1.firebasedatabase.app/");
+        db = FirebaseDatabase.getInstance("https://groomver-b0d6b-default-rtdb.europe-west1.firebasedatabase.app/");
 
         registerButton = findViewById(R.id.register_button);
-        etEnterNumberPhone = findViewById(R.id.enter_number_phone);
+        etEmail = findViewById(R.id.enter_email);
         etNameInput = findViewById(R.id.name_input);
         etCreatePassword = findViewById(R.id.create_password);
         etRepeatPassword = findViewById(R.id.repeat_password);
 
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateData();
-            }
-        });
+        registerButton.setOnClickListener(v -> validateData());
 
     }
 
     private void validateData() {
-        String numberPhone = etEnterNumberPhone.getText().toString();
+        String userEmail = etEmail.getText().toString();
         String userName = etNameInput.getText().toString();
         String createPassword = etCreatePassword.getText().toString();
         String repeatPassword = etRepeatPassword.getText().toString();
 
-        if (TextUtils.isEmpty(numberPhone)) {
+        if (TextUtils.isEmpty(userEmail)) {
             Toast.makeText(this, "Заполните 'Номер телефона'", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(userName)) {
             Toast.makeText(this, "Заполните 'Имя пользователя'", Toast.LENGTH_SHORT).show();
@@ -67,12 +62,12 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (!createPassword.equals(repeatPassword)) {
             Toast.makeText(this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
         } else {
-            isUserExist(userName, numberPhone, createPassword);
+            isUserExist(userName, userEmail, createPassword);
         }
 
     }
 
-    private void isUserExist(String userName, String numberPhone, String createPassword){
+    private void isUserExist(String userName, String userEmail, String createPassword){
         DatabaseReference users = db.getReference("users");
 
         users.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -81,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean isExist = false;
                 for(DataSnapshot user : snapshot.getChildren()){
                     User myUser = user.getValue(User.class);
-                    if(myUser.getPhoneNumber().equals(numberPhone)){
+                    if(myUser.getUserEmail().equals(userEmail)){
                         isExist = true;
 
                         Toast.makeText(RegisterActivity.this,
@@ -103,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if(!isExist){
-                    createAccount(userName, numberPhone, createPassword);
+                    createAccount(userName, userEmail, createPassword);
                 }
             }
 

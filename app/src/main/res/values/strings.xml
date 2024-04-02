@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">GroomVer</string>
-    <string name="Do_you_have_account"> У вас есть аккаун?Войти </string>
+
     <string name="Join_account"> Регистрация </string>
     <string name="Entrance">Вход</string>
-    <string name="Login">Номер телефона</string>
+    <string name="Login">E-mail</string>
     <string name="Password">Пароль</string>
     <string name="Remember_me">Запомнить меня</string>
     <string name="Forget_password">Забыли пароль?</string>
