@@ -51,6 +51,4 @@ public class User {
     public String getKey(){
         return this.key;
     }
-
-
 }
