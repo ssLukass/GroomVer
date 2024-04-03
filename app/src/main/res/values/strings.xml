@@ -29,4 +29,6 @@
 
     <string name="Not_new_user_name">Пользователь с таким именем уже существует</string>
     <string name="Not_New_Email">Пользователь с такой почтой уже существует</string>
+
+    <string name="Invalid_Email"> Некорректный Email</string>
 </resources>

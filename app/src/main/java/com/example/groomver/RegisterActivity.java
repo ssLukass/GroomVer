@@ -1,6 +1,7 @@
 package com.example.groomver;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.regex.Pattern;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,7 +56,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(userEmail)) {
             Toast.makeText(this, getString(R.string.Enter_Email), Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(userName)) {
+        } else if (!isValidEmail(userEmail)) {
+            Toast.makeText(this, getString(R.string.Invalid_Email), Toast.LENGTH_SHORT).show();
+        }else if (TextUtils.isEmpty(userName)) {
             Toast.makeText(this, getString(R.string.Enter_User_Name), Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(createPassword)) {
             Toast.makeText(this, getString(R.string.Enter_Create_Password), Toast.LENGTH_SHORT).show();
@@ -115,13 +119,21 @@ public class RegisterActivity extends AppCompatActivity {
         String key = users.getKey();
         user.setKey(key);
 
-        Log.d("RegisterActivity", "Creating account for user: " + userName);
-        Log.d("RegisterActivity", "User email: " + userEmail);
-        Log.d("RegisterActivity", "User password: " + createPassword);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this );
+
+        builder.setTitle("Создание аккаунта");
+        builder.setMessage("Пожалуйста подождите...");
+        builder.create();
 
         users.setValue(user);
 
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
     }
 }
