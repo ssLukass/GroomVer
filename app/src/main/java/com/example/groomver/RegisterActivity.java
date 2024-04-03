@@ -34,8 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        db = FirebaseDatabase.getInstance("https://groomver-b0d6b-default-rtdb.europe-west1.firebasedatabase.app/");
-
+        db=FirebaseDatabase.getInstance("https://groomver-b0d6b-default-rtdb.europe-west1.firebasedatabase.app/");
         registerButton = findViewById(R.id.register_button);
         etEmail = findViewById(R.id.enter_email);
         etNameInput = findViewById(R.id.name_input);
@@ -54,13 +53,13 @@ public class RegisterActivity extends AppCompatActivity {
         String repeatPassword = etRepeatPassword.getText().toString();
 
         if (TextUtils.isEmpty(userEmail)) {
-            Toast.makeText(this, "Заполните 'Номер телефона'", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.Enter_Email), Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(userName)) {
-            Toast.makeText(this, "Заполните 'Имя пользователя'", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.Enter_User_Name), Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(createPassword)) {
-            Toast.makeText(this, "Заполните 'Придумайте пароль'", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.Enter_Create_Password), Toast.LENGTH_SHORT).show();
         } else if (!createPassword.equals(repeatPassword)) {
-            Toast.makeText(this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.Password_uncorrect), Toast.LENGTH_SHORT).show();
         } else {
             isUserExist(userName, userEmail, createPassword);
         }
@@ -80,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                         isExist = true;
 
                         Toast.makeText(RegisterActivity.this,
-                                "Пользователь с таким телефоном уже существует",
+                                getString(R.string.Not_New_Email),
                                 Toast.LENGTH_SHORT).show();
 
                         break;
@@ -90,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
                         isExist = true;
 
                         Toast.makeText(RegisterActivity.this,
-                                "Пользователь с таким именем уже существует",
+                                getString(R.string.Not_new_user_name),
                                 Toast.LENGTH_SHORT).show();
 
                         break;
@@ -109,17 +108,20 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void createAccount(String userName, String numberPhone, String createPassword) {
-        DatabaseReference users = db.getReference("users").push();
+    private void createAccount(String userName, String userEmail, String createPassword) {
+        DatabaseReference users = db.   getReference("users").push();
 
-        User user = new User(userName, createPassword, numberPhone);
+        User user = new User(userName, createPassword, userEmail);
         String key = users.getKey();
         user.setKey(key);
+
+        Log.d("RegisterActivity", "Creating account for user: " + userName);
+        Log.d("RegisterActivity", "User email: " + userEmail);
+        Log.d("RegisterActivity", "User password: " + createPassword);
 
         users.setValue(user);
 
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
-        finish();
     }
 }

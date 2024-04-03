@@ -40,8 +40,8 @@ public class User {
         this.password = password;
     }
 
-    public void setPhoneNumber(String phoneNumber){
-        this.userEmail = phoneNumber;
+    public void setUserEmail(String userEmail){
+        this.userEmail = userEmail;
     }
 
     public void setKey(String key){

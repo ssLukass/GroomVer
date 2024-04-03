@@ -20,4 +20,13 @@
     <string name="Create_accout_complite">Аккаунт успешно создан</string>
     <string name="This_number_registered">Данный номер уже зарегистрирован</string>
     <string name="Error">Ошибка</string>
+    
+    <string name="Enter_Email">Заполните "Email"</string>
+    <string name="Enter_User_Name">Заполните "Имя пользователя"</string>
+    <string name="Enter_Create_Password">Заполните "Придумайте пароль"</string>
+    <string name="Password_uncorrect">Пароли не совпадают</string>
+
+
+    <string name="Not_new_user_name">Пользователь с таким именем уже существует</string>
+    <string name="Not_New_Email">Пользователь с такой почтой уже существует</string>
 </resources>
