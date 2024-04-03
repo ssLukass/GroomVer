@@ -79,7 +79,7 @@
         android:layout_marginTop="224dp"
         android:background="@drawable/input_design"
         android:hint="@string/Login"
-        android:inputType="number"
+        android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textColorHint="#8E8E8E"
         android:textSize="20sp"

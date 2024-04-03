@@ -10,14 +10,25 @@ public class User {
 
     private String key;
 
-    public User(String userName, String password, String userEmail) {
+    private String UID;
+
+    public User(String userName, String password, String userEmail, String UID) {
         this.userName = userName;
         this.password = password;
         this.userEmail = userEmail;
+        this.UID = UID;
     }
 
     public User(){
 
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getUserName(){

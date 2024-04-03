@@ -27,8 +27,15 @@
     <string name="Password_uncorrect">Пароли не совпадают</string>
 
 
+    <string name="Enter_Password">Введите пароль</string>
+
     <string name="Not_new_user_name">Пользователь с таким именем уже существует</string>
     <string name="Not_New_Email">Пользователь с такой почтой уже существует</string>
+    <string name="Weak_Password">Пароль должен содержать как минимум 6 символов</string>
+
+    <string name="Undefined_Error">Неизвестная ошибка</string>
 
     <string name="Invalid_Email"> Некорректный Email</string>
+    
+    <string name="Incorrect_Email_Or_Password">Некорректный Email или пароль</string>
 </resources>
