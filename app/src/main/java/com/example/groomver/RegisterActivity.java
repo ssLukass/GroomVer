@@ -119,11 +119,11 @@ public class RegisterActivity extends AppCompatActivity {
         String key = users.getKey();
         user.setKey(key);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this );
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(this );
 
         builder.setTitle("Создание аккаунта");
         builder.setMessage("Пожалуйста подождите...");
-        builder.create();
+        builder.create();*/
 
         users.setValue(user);
 
