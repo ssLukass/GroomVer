@@ -28,11 +28,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button loginButton;
     private EditText etEmail, etPassword;
-
     private TextView registerAccount;
-
+    private TextView tvforgotPassword;
     private FirebaseAuth auth;
-
     private FirebaseDatabase db;
 
     @Override
@@ -42,15 +40,16 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance("https://groomver-b0d6b-default-rtdb.europe-west1.firebasedatabase.app/");
-
-//        String email = etEmail.getText().toString();
-//        auth.sendPasswordResetEmail(email);
-
         loginButton = findViewById(R.id.login_button);
         etEmail = findViewById(R.id.login_input);
         etPassword = findViewById(R.id.password_input);
         registerAccount = findViewById(R.id.tv_dont_have_account);
+        tvforgotPassword=findViewById(R.id.forget_password);
 
+        /**
+         * Assigns a listener to the "Register Account" button. When you click on the button
+         * redirects the user to the account registration screen.
+         */
         registerAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +58,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        tvforgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        /**
+         * Assigns a listener to the login button. When you click on the button
+         * validates the user's entered data.
+         */
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +78,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks the data entered by the user in the email and password fields.
+     * If the fields are not empty, calls the LoginUser method to authenticate the user.
+     * If the fields are empty, displays error messages.
+     */
     private void validateData() {
         String userEmail = etEmail.getText().toString();
         String userPassword = etPassword.getText().toString();
@@ -80,11 +96,22 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Updates user information in the Firebase database.
+     *
+     * @param user The user object containing the updated data.
+     */
     public void updateUserInFireBase(User user){
         DatabaseReference users = db.getReference("users");
         users.child(user.getKey()).setValue(user);
     }
 
+    /**
+     * Retrieves data about the current user from the Firebase database.
+     * After receiving the data, calls the onUserReceived method of the OnDataUserReceivedListener interface.
+     *
+     * @param listener is a listener for processing the received user data.
+     */
     public void getDatabaseCurrentUser(OnDataUserReceivedListener listener) {
         DatabaseReference users = db.getReference("users");
         FirebaseUser userFBAuth = auth.getCurrentUser();
@@ -109,7 +136,13 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Authenticates the user in the application using the specified email and password.
+     * After successful authentication, redirects the user to the main screen.
+     *
+     * @param email The user's email address.
+     * @param password is the user's password.
+     */
     private void loginUser(String email, String password){
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override

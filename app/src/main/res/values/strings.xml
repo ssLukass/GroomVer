@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">GroomVer</string>
 
-    <string name="Join_account"> Регистрация </string>
+    <string name="Join_account">Регистрация</string>
     <string name="Entrance">Вход</string>
+
     <string name="Login">E-mail</string>
     <string name="Password">Пароль</string>
     <string name="Remember_me">Запомнить меня</string>
@@ -10,32 +11,38 @@
     <string name="Enter">Войти</string>
     <string name="Register">Зарегистрироваться</string>
     <string name="Name_user">Имя пользователя</string>
-    <string name="Create_password">Придуймайте пароль</string>
+    <string name="Create_password">Придумайте пароль</string>
     <string name="Repeat_password">Повторите пароль</string>
-
     <string name="Alert_create_account">Создание аккаунта</string>
     <string name="Alert_please_wait">Пожалуйста, подождите...</string>
-
-
     <string name="Create_accout_complite">Аккаунт успешно создан</string>
-    <string name="This_number_registered">Данный номер уже зарегистрирован</string>
     <string name="Error">Ошибка</string>
-    
     <string name="Enter_Email">Заполните "Email"</string>
     <string name="Enter_User_Name">Заполните "Имя пользователя"</string>
     <string name="Enter_Create_Password">Заполните "Придумайте пароль"</string>
     <string name="Password_uncorrect">Пароли не совпадают</string>
-
-
     <string name="Enter_Password">Введите пароль</string>
-
     <string name="Not_new_user_name">Пользователь с таким именем уже существует</string>
     <string name="Not_New_Email">Пользователь с такой почтой уже существует</string>
+
     <string name="Weak_Password">Пароль должен содержать как минимум 6 символов</string>
-
     <string name="Undefined_Error">Неизвестная ошибка</string>
-
-    <string name="Invalid_Email"> Некорректный Email</string>
-    
+    <string name="Invalid_Email">Некорректный Email</string>
     <string name="Incorrect_Email_Or_Password">Некорректный Email или пароль</string>
+
+    <string name="I_Dont_Have_Account">У меня нет аккаунта</string>
+    <string name="I_Have_Account">У меня есть аккаунта</string>
+
+    <string name="Password_Recovery">Восстановление пароля</string>
+    <string name="Send_An_Email">Отправить письмо</string>
+
+    <!-- Bottom Navigation View-->
+    <string name="Home">Главная</string>
+    <string name="Search">Поиск</string>
+    <string name="Add">Добавить</string>
+    <string name="Messeges">Сообщения</string>
+    <string name="Profile">Профиль</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

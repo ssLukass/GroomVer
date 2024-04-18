@@ -8,7 +8,6 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="33dp">
 
-
     <ImageView
         android:id="@+id/image_logo"
         android:layout_width="0dp"
@@ -65,7 +64,7 @@
         android:id="@+id/tv_dont_have_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="У меня нет аккаунта"
+        android:text="@string/I_Dont_Have_Account"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/login_button"
@@ -87,20 +86,29 @@
         app:layout_constraintTop_toBottomOf="@+id/text_view"
         tools:layout_editor_absoluteX="0dp" />
 
-    <EditText
-        android:id="@+id/password_input"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:background="@drawable/input_design"
-        android:hint="@string/Password"
-        android:inputType="textPassword"
-        android:padding="15dp"
-        android:textColorHint="#8E8E8E"
-        android:textSize="20sp"
-        android:textStyle="italic"
         app:layout_constraintTop_toBottomOf="@+id/login_input"
-        tools:layout_editor_absoluteX="0dp" />
+        app:endIconMode="password_toggle"
+        android:hint=" ">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_design"
+            android:hint="@string/Password"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:textColorHint="#8E8E8E"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/linear_check"
@@ -111,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_input">
+        app:layout_constraintTop_toBottomOf="@id/password_input_layout">
 
 
         <TextView
