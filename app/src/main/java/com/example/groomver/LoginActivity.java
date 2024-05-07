@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import models.User;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button loginButton;
@@ -123,14 +125,14 @@ public class LoginActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot ds : snapshot.getChildren()) {
                                 User user = ds.getValue(User.class);
-                                listener.onUserReceived(user);
+                                listener.onUserReceived(user); // Pass the user object to the listener
                                 break;
                             }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            // Handle onCancelled
                         }
                     });
         }

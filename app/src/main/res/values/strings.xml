@@ -42,7 +42,23 @@
     <string name="Add">Добавить</string>
     <string name="Messeges">Сообщения</string>
     <string name="Profile">Профиль</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+   
+    <!-- Profile-->
+    <string name="Select_A_Photo_From_The_Gallery">Выберите фотографию из галереи</string>
+    <string name="Edit_A_Profile">Редактировать профиль</string>
+    <string name="Rating">Рейтинг:</string>
+    <string name="Favourites">Избранное:</string>
+    <string name="Ads">Объявления:</string>
+    <string name="Exit">Выход из аккаунта</string>
+
+    <string name="Email">Почта</string>
+
+
+
+
+    <!--Add-->
+    <string name="Name_product">Название товара</string>
+    <string name="Description_product">Описание товара</string>
+    <string name="Price_product">Цена товара</string>
 
 </resources>

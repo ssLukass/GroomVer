@@ -1,16 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddFragment">
+    android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/add"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:scaleType="centerCrop"/>
 
-    <TextView
+    <EditText
+        android:id="@+id/editTextProductName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAlignment="center"
-        android:textSize="36dp"
-        android:text="@string/Add" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:layout_marginTop="32dp"
+        android:hint="@string/Name_product"
+        android:padding="16dp"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/editTextProductDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextProductName"
+        android:layout_marginTop="16dp"
+        android:hint="@string/Description_product"
+        android:padding="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextProductPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextProductDescription"
+        android:layout_marginTop="16dp"
+        android:hint="@string/Price_product"
+        android:inputType="numberDecimal"
+        android:padding="16dp"/>
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextProductPrice"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="33dp"
+        android:text="Назад" />
+
+    <Button
+        android:id="@+id/buttonPublish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextProductPrice"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="30dp"
+        android:layout_toEndOf="@+id/buttonBack"
+        android:onClick="onPublishButtonClick"
+        android:text="Опубликовать" />
+</RelativeLayout>

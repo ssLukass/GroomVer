@@ -3,16 +3,18 @@ package com.example.groomver;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import fragments.AddFragment;
+import fragments.HomeFragment;
+import fragments.MessegeFragment;
+import fragments.ProfileFragment;
+import fragments.SearchFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.page_add) {
                     fragment = new AddFragment();
                 }else if (item.getItemId() == R.id.page_masseges){
-                    fragment = new MessegesFragment();
+                    fragment = new MessegeFragment();
                 }else {
                     fragment = new ProfileFragment();
                 }
