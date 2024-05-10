@@ -1,4 +1,4 @@
-package com.example.groomver;
+package com.example.groomver.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,14 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.groomver.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import fragments.AddFragment;
-import fragments.HomeFragment;
-import fragments.MessegeFragment;
-import fragments.ProfileFragment;
-import fragments.SearchFragment;
+import com.example.groomver.fragments.AddFragment;
+import com.example.groomver.fragments.HomeFragment;
+import com.example.groomver.fragments.MessegeFragment;
+import com.example.groomver.fragments.ProfileFragment;
+import com.example.groomver.fragments.SearchFragment;
 
 
 public class MainActivity extends AppCompatActivity {

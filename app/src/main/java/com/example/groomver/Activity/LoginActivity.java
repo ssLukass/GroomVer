@@ -1,4 +1,4 @@
-package com.example.groomver;
+package com.example.groomver.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.groomver.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,7 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import models.User;
+import com.example.groomver.models.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         auth = FirebaseAuth.getInstance();
-        db = FirebaseDatabase.getInstance("https://groomver-b0d6b-default-rtdb.europe-west1.firebasedatabase.app/");
+        db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
         loginButton = findViewById(R.id.login_button);
         etEmail = findViewById(R.id.login_input);
         etPassword = findViewById(R.id.password_input);

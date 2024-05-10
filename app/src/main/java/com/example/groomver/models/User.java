@@ -1,4 +1,4 @@
-package models;
+package com.example.groomver.models;
 
 public class User {
     private String userName;

@@ -1,4 +1,4 @@
-package fragments;
+package com.example.groomver.fragments;
 
 import android.os.Bundle;
 

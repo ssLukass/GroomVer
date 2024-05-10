@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.groomver" />
-                  <option name="mobileSdkAppId" value="1:333573754740:android:dcb46ac263772930202621" />
-                  <option name="projectId" value="groomver-b0d6b" />
-                  <option name="projectNumber" value="333573754740" />
+                  <option name="mobileSdkAppId" value="1:1016841288821:android:a0820114e7dd3f76258c3c" />
+                  <option name="projectId" value="newgroomver" />
+                  <option name="projectNumber" value="1016841288821" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -60,5 +60,6 @@
     <string name="Name_product">Название товара</string>
     <string name="Description_product">Описание товара</string>
     <string name="Price_product">Цена товара</string>
-
+    <string name="Back">Назад</string>
+    <string name="Publish">Опубликовать</string>
 </resources>

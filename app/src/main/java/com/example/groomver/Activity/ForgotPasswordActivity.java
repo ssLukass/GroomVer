@@ -1,4 +1,4 @@
-package com.example.groomver;
+package com.example.groomver.Activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;

@@ -1,4 +1,4 @@
-package fragments;
+package com.example.groomver.fragments;
 
 import android.os.Bundle;
 
@@ -11,15 +11,13 @@ import android.widget.Toast;
 
 import com.example.groomver.R;
 
-
-public class SearchFragment extends Fragment {
-
+public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-        Toast.makeText(requireContext(), getString(R.string.Search), Toast.LENGTH_SHORT).show();
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        Toast.makeText(requireContext(), getString(R.string.Home), Toast.LENGTH_SHORT).show();
         return view;
     }
 }
