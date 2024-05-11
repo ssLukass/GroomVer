@@ -26,6 +26,13 @@ public class User {
         this.UID = UID;
     }
 
+    public User(String userName, String userEmail, String UID){
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.UID = UID;
+    }
+
+
 
     public User(){
 

@@ -181,7 +181,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         DatabaseReference users = db.getReference("users").push();
 
-        User user = new User(userName, createPassword, userEmail, UID);
+        User user = new User(userName, userEmail, UID);
         String key = users.getKey();
         user.setKey(key);
 

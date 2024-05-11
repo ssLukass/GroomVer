@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -156,20 +157,26 @@ public class LoginActivity extends AppCompatActivity {
                         public void onUserReceived(User user) {
                             user.setPassword(password);
                             updateUserInFireBase(user);
+
+                            // Save user data to Shared Preferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("email", user.getUserEmail());
+                            editor.putString("password", user.getPassword());
+                            editor.apply();
                         }
                     });
 
-                   Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                   startActivity(intent);
-                }else{
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
                     try {
                         throw task.getException();
-                    }catch (FirebaseAuthInvalidCredentialsException ex){
+                    } catch (FirebaseAuthInvalidCredentialsException ex) {
                         Toast.makeText(LoginActivity.this,
                                 getString(R.string.Incorrect_Email_Or_Password),
                                 Toast.LENGTH_SHORT).show();
-                    }
-                    catch (Exception ex){
+                    } catch (Exception ex) {
                         Toast.makeText(LoginActivity.this,
                                 getString(R.string.Undefined_Error),
                                 Toast.LENGTH_SHORT).show();

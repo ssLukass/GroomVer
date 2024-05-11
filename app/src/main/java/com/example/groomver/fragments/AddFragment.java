@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,22 +62,23 @@ public class AddFragment extends Fragment {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent intent = result.getData();
-                        try {
-                            if (intent != null) {
-                                Uri selectedImageUri = intent.getData();
-                                if (selectedImageUri != null) {
+                        if (intent != null) {
+                            Uri selectedImageUri = intent.getData();
+                            if (selectedImageUri != null) {
+                                try {
                                     InputStream is = requireActivity().getContentResolver().openInputStream(selectedImageUri);
                                     Bitmap bitmap = BitmapFactory.decodeStream(is);
                                     ivProduct.setImageBitmap(bitmap);
                                     uploadImage(bitmap);
+                                } catch (FileNotFoundException exception) {
+                                    exception.printStackTrace();
                                 }
                             }
-                        } catch (FileNotFoundException exception) {
-                            exception.printStackTrace();
                         }
                     }
                 }
             });
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -165,25 +167,30 @@ public class AddFragment extends Fragment {
         StorageReference profileImages = storage.getReference().child("product_images/" + System.currentTimeMillis() + ".jpg");
         UploadTask uploadTask = profileImages.putBytes(data);
 
-        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        // После установки ссылки на фото продукта
+        profileImages.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()) {
-                    profileImages.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> uriTask) {
-                            if (uriTask.isSuccessful()) {
-                                Uri downloadUri = uriTask.getResult();
-                                if (downloadUri != null) {
-                                    String imageUrl = downloadUri.toString();
-                                    myAd.setFotoProduct(imageUrl);
-                                }
-                            } else {
-                                Toast.makeText(requireContext(), "Ошибка при загрузке изображения", Toast.LENGTH_SHORT).show();
+            public void onComplete(@NonNull Task<Uri> uriTask) {
+                if (uriTask.isSuccessful()) {
+                    Uri downloadUri = uriTask.getResult();
+                    if (downloadUri != null) {
+                        String imageUrl = downloadUri.toString();
+                        myAd.setFotoProduct(imageUrl);
+
+                        // Сохраняем ссылку на фото продукта в базе данных Firebase
+                        adsRef.child("product_images").setValue(imageUrl);
+
+                        // Обновляем UI в основном потоке
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Выполнить любые операции с UI, если это необходимо
+                                // Например, показать сообщение или обновить элементы интерфейса
                             }
-                        }
-                    });
+                        });
+                    }
                 } else {
+                    Log.e("my_error", uriTask.getException().getMessage());
                     Toast.makeText(requireContext(), "Ошибка при загрузке изображения", Toast.LENGTH_SHORT).show();
                 }
             }
