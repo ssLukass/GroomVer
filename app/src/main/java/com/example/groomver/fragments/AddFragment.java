@@ -177,7 +177,7 @@ public class AddFragment extends Fragment {
                         String imageUrl = downloadUri.toString();
                         myAd.setFotoProduct(imageUrl);
 
-                        // Сохраняем ссылку на фото продукта в базе данных Firebase
+                        // Сохраняем ссылку на фото продукта в базе данных Firebas
                         adsRef.child("product_images").setValue(imageUrl);
 
                         // Обновляем UI в основном потоке
@@ -190,7 +190,7 @@ public class AddFragment extends Fragment {
                         });
                     }
                 } else {
-                    Log.e("my_error", uriTask.getException().getMessage());
+                    Log.e("Image_error", uriTask.getException().getMessage());
                     Toast.makeText(requireContext(), "Ошибка при загрузке изображения", Toast.LENGTH_SHORT).show();
                 }
             }
