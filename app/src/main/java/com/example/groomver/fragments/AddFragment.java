@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.groomver.R;
 import com.example.groomver.models.Ad;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -68,7 +69,6 @@ public class AddFragment extends Fragment {
                                 try {
                                     InputStream is = requireActivity().getContentResolver().openInputStream(selectedImageUri);
                                     Bitmap bitmap = BitmapFactory.decodeStream(is);
-                                    ivProduct.setImageBitmap(bitmap);
                                     uploadImage(bitmap);
                                 } catch (FileNotFoundException exception) {
                                     exception.printStackTrace();
@@ -79,24 +79,17 @@ public class AddFragment extends Fragment {
                 }
             });
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add, container, false);
-        db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
-        storage = FirebaseStorage.getInstance();
-        adsRef = db.getReference("ads");
-        initViews(view);
-        return view;
+        return inflater.inflate(R.layout.fragment_add, container, false);
     }
 
-    private void initViews(View view) {
-        ivProduct = view.findViewById(R.id.ivProduct);
-        etNameProduct = view.findViewById(R.id.etProductName);
-        etDescriptionProduct = view.findViewById(R.id.etDescriptionProduct);
-        etPrice = view.findViewById(R.id.etProductPrice);
-        bPublish = view.findViewById(R.id.bPublish);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        init(view);
 
         ivProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +107,18 @@ public class AddFragment extends Fragment {
         });
     }
 
+    private void init(View view) {
+        ivProduct = view.findViewById(R.id.ivProduct);
+        etNameProduct = view.findViewById(R.id.etProductName);
+        etDescriptionProduct = view.findViewById(R.id.etDescriptionProduct);
+        etPrice = view.findViewById(R.id.etProductPrice);
+        bPublish = view.findViewById(R.id.bPublish);
+        db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
+        storage = FirebaseStorage.getInstance();
+        adsRef = db.getReference("ads");
+
+    }
+
     private void validateData() {
         String nameProduct = etNameProduct.getText().toString().trim();
         String descriptionProduct = etDescriptionProduct.getText().toString().trim();
@@ -126,7 +131,7 @@ public class AddFragment extends Fragment {
         } else if (TextUtils.isEmpty(price)) {
             Toast.makeText(requireContext(), "Введите цену продукта", Toast.LENGTH_SHORT).show();
         } else {
-            // Данные введены корректно, нет необходимости проверять их еще раз перед сохранением
+
             saveAdToDatabase();
         }
     }
@@ -141,11 +146,9 @@ public class AddFragment extends Fragment {
         myAd.setDescriptionProduct(descriptionProduct);
         myAd.setPrice(Integer.parseInt(price));
 
-        // Устанавливаем UID для объявления
         String UID = adsRef.push().getKey();
         myAd.setUID(UID);
 
-        // Сохраняем данные о продукте в базе данных
         adsRef.child(UID).setValue(myAd)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -160,38 +163,24 @@ public class AddFragment extends Fragment {
     }
 
     private void uploadImage(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
 
-        StorageReference profileImages = storage.getReference().child("product_images/" + System.currentTimeMillis() + ".jpg");
-        UploadTask uploadTask = profileImages.putBytes(data);
+        StorageReference profileImages = storage.getReference("ads");
+        StorageReference currentImage = profileImages.child(System.currentTimeMillis() + "");
+        UploadTask uploadTask = currentImage.putBytes(bytes);
 
-        // После установки ссылки на фото продукта
-        profileImages.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onComplete(@NonNull Task<Uri> uriTask) {
-                if (uriTask.isSuccessful()) {
-                    Uri downloadUri = uriTask.getResult();
-                    if (downloadUri != null) {
-                        String imageUrl = downloadUri.toString();
-                        myAd.setFotoProduct(imageUrl);
-
-                        // Сохраняем ссылку на фото продукта в базе данных Firebas
-                        adsRef.child("product_images").setValue(imageUrl);
-
-                        // Обновляем UI в основном потоке
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                // Выполнить любые операции с UI, если это необходимо
-                                // Например, показать сообщение или обновить элементы интерфейса
-                            }
-                        });
-                    }
-                } else {
-                    Log.e("Image_error", uriTask.getException().getMessage());
-                    Toast.makeText(requireContext(), "Ошибка при загрузке изображения", Toast.LENGTH_SHORT).show();
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                return currentImage.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    myAd.setFotoProduct(task.getResult().toString());
                 }
             }
         });
