@@ -5,12 +5,10 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +22,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.groomver.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +44,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 import com.example.groomver.models.User;
@@ -67,20 +65,26 @@ public class ProfileFragment extends Fragment {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent intent = result.getData();
+                        Uri imageUri = intent.getData();
                         try {
-                            Uri imageUri = intent.getData();
-                            InputStream is = requireActivity().getContentResolver().openInputStream(imageUri);
-                            Bitmap bitmap = BitmapFactory.decodeStream(is);
+                            // Загрузка изображения с помощью Glide
+                            Glide.with(ProfileFragment.this)
+                                    .asBitmap()
+                                    .load(imageUri)
+                                    .into(new CustomTarget<Bitmap>() {
+                                        @Override
+                                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                            ivAvatar.setImageBitmap(resource);
+                                            uploadImage(resource);
+                                        }
 
-                            // Check and adjust orientation
-                            bitmap = adjustImageOrientation(imageUri, bitmap);
-
-                            ivAvatar.setImageBitmap(bitmap);
-                            uploadImage(bitmap);
-                        } catch (FileNotFoundException exception) {
+                                        @Override
+                                        public void onLoadCleared(@Nullable Drawable placeholder) {
+                                            // This can be empty
+                                        }
+                                    });
+                        } catch (Exception exception) {
                             exception.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
                     }
                 }
@@ -89,7 +93,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
@@ -108,29 +111,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-    }
-
-    private Bitmap adjustImageOrientation(Uri imageUri, Bitmap bitmap) throws IOException {
-        InputStream input = requireActivity().getContentResolver().openInputStream(imageUri);
-        ExifInterface exif = new ExifInterface(input);
-        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-
-        Matrix matrix = new Matrix();
-        switch (orientation) {
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                matrix.postRotate(90);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                matrix.postRotate(180);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                matrix.postRotate(270);
-                break;
-            default:
-                return bitmap;
-        }
-
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     private void uploadImage(Bitmap bitmap) {
