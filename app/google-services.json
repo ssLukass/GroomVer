@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1016841288821",
+    "project_id": "newgroomver",
+    "storage_bucket": "newgroomver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016841288821:android:a0820114e7dd3f76258c3c",
+        "android_client_info": {
+          "package_name": "com.example.groomver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSL-Rz4PfMU8Ivu1wj1w-xq_JS8FVbJI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
