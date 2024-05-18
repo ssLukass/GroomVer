@@ -6,9 +6,11 @@ import static android.widget.Toast.LENGTH_SHORT;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +45,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.example.groomver.models.User;
@@ -64,17 +68,23 @@ public class ProfileFragment extends Fragment {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent intent = result.getData();
                         try {
-                            InputStream is = requireActivity().getContentResolver().openInputStream(intent.getData());
+                            Uri imageUri = intent.getData();
+                            InputStream is = requireActivity().getContentResolver().openInputStream(imageUri);
                             Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+                            // Check and adjust orientation
+                            bitmap = adjustImageOrientation(imageUri, bitmap);
+
                             ivAvatar.setImageBitmap(bitmap);
                             uploadImage(bitmap);
                         } catch (FileNotFoundException exception) {
                             exception.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
             });
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,6 +108,29 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+    }
+
+    private Bitmap adjustImageOrientation(Uri imageUri, Bitmap bitmap) throws IOException {
+        InputStream input = requireActivity().getContentResolver().openInputStream(imageUri);
+        ExifInterface exif = new ExifInterface(input);
+        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.postRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.postRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.postRotate(270);
+                break;
+            default:
+                return bitmap;
+        }
+
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     private void uploadImage(Bitmap bitmap) {
@@ -158,25 +191,22 @@ public class ProfileFragment extends Fragment {
         void onUserReceived(User user);
     }
 
-
     private void init(View view) {
         storage = FirebaseStorage.getInstance();
         ivAvatar = view.findViewById(R.id.imageview_profile);
         db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app//");
         auth = FirebaseAuth.getInstance();
         userName = view.findViewById(R.id.textview_userName);
-        userEmail = view.findViewById(R.id.textview_userEmail); // Добавляем получение ссылки на TextView для email
+        userEmail = view.findViewById(R.id.textview_userEmail);
 
         getDatabaseCurrentUser(new OnDataUserReceivedListener() {
             @Override
             public void onUserReceived(User user) {
                 if (user != null) {
                     myUser = user;
-                    // Получаем имя пользователя и email из объекта пользователя и устанавливаем их в соответствующие TextView
                     userName.setText(user.getUserName());
                     userEmail.setText(user.getUserEmail());
-//                    Log.d("TAG_USER_AVATAR", user.getAvatar());
-                    if(user.getAvatar()!=null) {
+                    if (user.getAvatar() != null) {
                         Glide.with(ProfileFragment.this)
                                 .load(user.getAvatar())
                                 .centerCrop()
