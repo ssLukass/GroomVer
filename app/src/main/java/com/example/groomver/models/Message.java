@@ -1,43 +1,38 @@
 package com.example.groomver.models;
 
 public class Message {
-    private String userName;
-    private String userAvatar;
-    private long timestamp;
-    private String Key;
+    private long timeStamp;
+    private String userKey1;
+    private String userKey2;
+    private String ownerKey;
     private String text;
 
+    public Message(){
 
-    public Message(String userName, String userAvatar, long timestamp, String text, String Key) {
-        this.userName = userName;
-        this.userAvatar = userAvatar;
-        this.timestamp = timestamp;
+    }
+
+    public Message(long timeStamp, String ownerKey, String text, String userKey1, String userKey2) {
+        this.timeStamp = timeStamp;
+        this.ownerKey = ownerKey;
         this.text = text;
-        this.Key = Key;
+        this.userKey1 = userKey1;
+        this.userKey2 = userKey2;
     }
 
-    public String getUserName() {
-        return userName;
+    public long getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
-    public String getUserAvatar() {
-        return userAvatar;
+    public String getOwnerKey() {
+        return ownerKey;
     }
 
-    public void setUserAvatar(String userAvatar) {
-        this.userAvatar = userAvatar;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timeStamp) {
-        this.timestamp = timeStamp;
+    public void setOwnerKey(String ownerKey) {
+        this.ownerKey = ownerKey;
     }
 
     public String getText() {
@@ -48,11 +43,19 @@ public class Message {
         this.text = text;
     }
 
-    public String getKey() {
-        return Key;
+    public String getUserKey1() {
+        return userKey1;
     }
 
-    public void setKey(String Key) {
-        this.Key = Key;
+    public void setUserKey1(String userKey1) {
+        this.userKey1 = userKey1;
+    }
+
+    public String getUserKey2() {
+        return userKey2;
+    }
+
+    public void setUserKey2(String userKey2) {
+        this.userKey2 = userKey2;
     }
 }
