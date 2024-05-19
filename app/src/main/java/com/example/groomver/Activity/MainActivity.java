@@ -13,7 +13,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import com.example.groomver.fragments.AddFragment;
 import com.example.groomver.fragments.HomeFragment;
-import com.example.groomver.fragments.MessegeFragment;
+import com.example.groomver.fragments.MessageFragment;
 import com.example.groomver.fragments.ProfileFragment;
 import com.example.groomver.fragments.SearchFragment;
 
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.page_add) {
                     fragment = new AddFragment();
                 }else if (item.getItemId() == R.id.page_masseges){
-                    fragment = new MessegeFragment();
+                    fragment = new MessageFragment();
                 }else {
                     fragment = new ProfileFragment();
                 }

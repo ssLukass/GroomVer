@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.groomver.R;
 
 
-public class MessegeFragment extends Fragment {
+public class MessageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
