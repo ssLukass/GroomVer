@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.groomver.R;
+import com.example.groomver.interfaces.OnDataUserReceivedCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,6 +38,15 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase db;
 
+    private boolean isUserAuthorized(){
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+
+        String email = sharedPreferences.getString("email", null);
+        String password = sharedPreferences.getString("password", null);
+
+        return !(TextUtils.isEmpty(email) && TextUtils.isEmpty(password));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +59,15 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.password_input);
         registerAccount = findViewById(R.id.tv_dont_have_account);
         tvforgotPassword=findViewById(R.id.forget_password);
+
+        if(isUserAuthorized()){
+            SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+
+            String email = sharedPreferences.getString("email", null);
+            String password = sharedPreferences.getString("password", null);
+
+            loginUser(email, password);
+        }
 
         /**
          * Assigns a listener to the "Register Account" button. When you click on the button
@@ -116,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
      *
      * @param listener is a listener for processing the received user data.
      */
-    public void getDatabaseCurrentUser(OnDataUserReceivedListener listener) {
+    public void getDatabaseCurrentUser(OnDataUserReceivedCallback listener) {
         DatabaseReference users = db.getReference("users");
         FirebaseUser userFBAuth = auth.getCurrentUser();
 
@@ -152,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    getDatabaseCurrentUser(new OnDataUserReceivedListener() {
+                    getDatabaseCurrentUser(new OnDataUserReceivedCallback() {
                         @Override
                         public void onUserReceived(User user) {
                             user.setPassword(password);
@@ -169,6 +188,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     try {
                         throw task.getException();
@@ -184,9 +204,5 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    interface OnDataUserReceivedListener{
-        void onUserReceived(User user);
     }
 }

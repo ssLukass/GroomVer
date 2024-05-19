@@ -176,8 +176,11 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void createAccount(String userName, String userEmail, String createPassword, String UID) {
 
-        SharedPreferences preferences = getSharedPreferences("pref",MODE_PRIVATE);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("email", userEmail);
+        editor.putString("password", createPassword);
+        editor.apply();
 
         DatabaseReference users = db.getReference("users").push();
 
@@ -189,5 +192,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }

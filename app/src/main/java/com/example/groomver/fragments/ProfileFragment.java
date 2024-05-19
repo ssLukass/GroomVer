@@ -28,6 +28,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.groomver.R;
+import com.example.groomver.interfaces.OnDataUserReceivedCallback;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,8 +44,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import com.example.groomver.models.User;
 
@@ -143,7 +142,7 @@ public class ProfileFragment extends Fragment {
         users.child(user.getKey()).setValue(user);
     }
 
-    public void getDatabaseCurrentUser(OnDataUserReceivedListener listener) {
+    public void getDatabaseCurrentUser(OnDataUserReceivedCallback listener) {
         DatabaseReference users = db.getReference("users");
         FirebaseUser userFBAuth = auth.getCurrentUser();
 
@@ -167,9 +166,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    interface OnDataUserReceivedListener {
-        void onUserReceived(User user);
-    }
+
 
     private void init(View view) {
         storage = FirebaseStorage.getInstance();
@@ -179,7 +176,7 @@ public class ProfileFragment extends Fragment {
         userName = view.findViewById(R.id.textview_userName);
         userEmail = view.findViewById(R.id.textview_userEmail);
 
-        getDatabaseCurrentUser(new OnDataUserReceivedListener() {
+        getDatabaseCurrentUser(new OnDataUserReceivedCallback() {
             @Override
             public void onUserReceived(User user) {
                 if (user != null) {

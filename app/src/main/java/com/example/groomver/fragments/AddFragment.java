@@ -28,12 +28,20 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.groomver.R;
-import com.example.groomver.models.Ad;
+import com.example.groomver.interfaces.ImageUploadCallback;
+import com.example.groomver.interfaces.OnDataUserReceivedCallback;
+import com.example.groomver.models.Product;
+import com.example.groomver.models.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -46,7 +54,8 @@ public class AddFragment extends Fragment {
 
     private FirebaseDatabase db;
     private FirebaseStorage storage;
-    private DatabaseReference adsRef;
+
+    private FirebaseAuth auth;
 
     private ImageView ivProduct;
     private EditText etNameProduct;
@@ -54,7 +63,8 @@ public class AddFragment extends Fragment {
     private EditText etPrice;
     private Button bPublish;
 
-    private Ad myAd;
+    private Bitmap productImage;
+
 
     private final ActivityResultLauncher<Intent> openGalleryResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -68,8 +78,8 @@ public class AddFragment extends Fragment {
                             if (selectedImageUri != null) {
                                 try {
                                     InputStream is = requireActivity().getContentResolver().openInputStream(selectedImageUri);
-                                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-                                    uploadImage(bitmap);
+                                    productImage = BitmapFactory.decodeStream(is);
+                                    ivProduct.setImageBitmap(productImage);
                                 } catch (FileNotFoundException exception) {
                                     exception.printStackTrace();
                                 }
@@ -115,8 +125,7 @@ public class AddFragment extends Fragment {
         bPublish = view.findViewById(R.id.bPublish);
         db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
         storage = FirebaseStorage.getInstance();
-        adsRef = db.getReference("ads");
-
+        auth = FirebaseAuth.getInstance();
     }
 
     private void validateData() {
@@ -131,7 +140,6 @@ public class AddFragment extends Fragment {
         } else if (TextUtils.isEmpty(price)) {
             Toast.makeText(requireContext(), "Введите цену продукта", Toast.LENGTH_SHORT).show();
         } else {
-
             saveAdToDatabase();
         }
     }
@@ -141,15 +149,39 @@ public class AddFragment extends Fragment {
         String descriptionProduct = etDescriptionProduct.getText().toString().trim();
         String price = etPrice.getText().toString().trim();
 
-        myAd = new Ad();
-        myAd.setNameProduct(nameProduct);
-        myAd.setDescriptionProduct(descriptionProduct);
-        myAd.setPrice(Integer.parseInt(price));
+        Product myProduct = new Product();
 
-        String UID = adsRef.push().getKey();
-        myAd.setUID(UID);
+        myProduct.setTitle(nameProduct);
+        myProduct.setDescription(descriptionProduct);
+        myProduct.setPrice(Integer.parseInt(price));
 
-        adsRef.child(UID).setValue(myAd)
+        getDatabaseCurrentUser(new OnDataUserReceivedCallback() {
+            @Override
+            public void onUserReceived(User user) {
+                myProduct.setOwnerUID(user.getUID());
+                if(productImage != null){
+                    uploadImage(productImage, new ImageUploadCallback() {
+                        @Override
+                        public void onImageUpload(String url) {
+                            myProduct.setImage(url);
+                            Log.d("USER_UID", url);
+                            uploadProduct(myProduct);
+                        }
+                    });
+                }else{
+                    uploadProduct(myProduct);
+                }
+            }
+        });
+    }
+
+    private void uploadProduct(Product product){
+        DatabaseReference myRef = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/")
+                .getReference("products").push();
+        String key = myRef.getKey();
+        product.setKey(key);
+
+        myRef.setValue(product)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -162,7 +194,8 @@ public class AddFragment extends Fragment {
                 });
     }
 
-    private void uploadImage(Bitmap bitmap) {
+
+    private void uploadImage(Bitmap bitmap, ImageUploadCallback callback) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
@@ -180,9 +213,33 @@ public class AddFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
-                    myAd.setFotoProduct(task.getResult().toString());
+                    callback.onImageUpload(task.getResult().toString());
                 }
             }
         });
+    }
+
+    public void getDatabaseCurrentUser(OnDataUserReceivedCallback listener) {
+        DatabaseReference users = db.getReference("users");
+        FirebaseUser userFBAuth = auth.getCurrentUser();
+
+        if (userFBAuth != null) {
+            users.orderByChild("uid").equalTo(userFBAuth.getUid()).limitToFirst(1)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                User user = ds.getValue(User.class);
+                                listener.onUserReceived(user); // Pass the user object to the listener
+                                break;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Handle onCancelled
+                        }
+                    });
+        }
     }
 }

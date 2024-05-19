@@ -20,10 +20,6 @@ public class MessegeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_messeges, container, false);
         Toast.makeText(requireContext(), getString(R.string.Messeges), Toast.LENGTH_SHORT).show();
 
-
-
-
-
         return view;
     }
 }

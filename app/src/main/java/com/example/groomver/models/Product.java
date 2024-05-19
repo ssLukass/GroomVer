@@ -1,23 +1,25 @@
 package com.example.groomver.models;
 
+import java.io.Serializable;
+
 public class Product {
     private String image;
     private String title;
     private String description;
     private String key;
-    private String ownerKey;
+    private String ownerUID;
     private int price;
 
     public Product(){
 
     }
 
-    public Product(String image, String title, String description, String key, String ownerKey, int price) {
+    public Product(String image, String title, String description, String key, String ownerUID, int price) {
         this.image = image;
         this.title = title;
         this.description = description;
         this.key = key;
-        this.ownerKey = ownerKey;
+        this.ownerUID = ownerUID;
         this.price = price;
     }
 
@@ -53,12 +55,12 @@ public class Product {
         this.key = key;
     }
 
-    public String getOwnerKey() {
-        return ownerKey;
+    public String getOwnerUID() {
+        return ownerUID;
     }
 
-    public void setOwnerKey(String ownerKey) {
-        this.ownerKey = ownerKey;
+    public void setOwnerUID(String ownerUID) {
+        this.ownerUID = ownerUID;
     }
 
     public int getPrice() {
@@ -68,10 +70,6 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
-
-
-
-
 }
 
 
