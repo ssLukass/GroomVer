@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#E1595959"
         android:padding="8dp"
-        android:text="Friend message"
+        android:text="@string/Friend_message"
         android:textColor="@color/white" />
 
 </LinearLayout>

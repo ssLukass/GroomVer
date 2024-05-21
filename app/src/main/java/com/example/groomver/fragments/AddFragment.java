@@ -134,11 +134,11 @@ public class AddFragment extends Fragment {
         String price = etPrice.getText().toString().trim();
 
         if (TextUtils.isEmpty(nameProduct)) {
-            Toast.makeText(requireContext(), "Введите название продукта", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.Name_product), Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(descriptionProduct)) {
-            Toast.makeText(requireContext(), "Введите описание продукта", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.Description_product), Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(price)) {
-            Toast.makeText(requireContext(), "Введите цену продукта ₸", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.Price_product), Toast.LENGTH_SHORT).show();
         } else {
             saveAdToDatabase();
         }
@@ -186,9 +186,9 @@ public class AddFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(requireContext(), "Продукт опубликован", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), getString(R.string.Product_publish), Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(requireContext(), "Ошибка при публикации продукта", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), getString(R.string.Error_product_publish), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
