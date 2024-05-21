@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SearchFragment">
+    android:orientation="vertical"
+    android:padding="16dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
 
-    <TextView
+        android:padding="8dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Поиск продуктов"
+            android:inputType="text" />
+
+        <ImageView
+            android:id="@+id/ivSearchIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/search"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearchResults"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textAlignment="center"
-        android:textSize="36dp"
-        android:text="@string/Search" />
-
-</FrameLayout>
+        android:paddingTop="8dp"
+        android:clipToPadding="false" />
+</LinearLayout>

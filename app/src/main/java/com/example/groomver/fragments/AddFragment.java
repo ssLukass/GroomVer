@@ -138,7 +138,7 @@ public class AddFragment extends Fragment {
         } else if (TextUtils.isEmpty(descriptionProduct)) {
             Toast.makeText(requireContext(), "Введите описание продукта", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(price)) {
-            Toast.makeText(requireContext(), "Введите цену продукта", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Введите цену продукта ₸", Toast.LENGTH_SHORT).show();
         } else {
             saveAdToDatabase();
         }
