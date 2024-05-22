@@ -22,6 +22,13 @@
             android:scaleType="centerCrop"
             android:src="@drawable/profile" />
 
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/favorite_selector" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -48,8 +55,6 @@
                 android:text="@string/Name_product"
                 android:textSize="15sp"
                 android:textStyle="italic" />
-
-
         </LinearLayout>
     </FrameLayout>
 </androidx.cardview.widget.CardView>

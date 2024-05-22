@@ -6,12 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import com.example.groomver.adapters.ProductsAdapter;
 import com.example.groomver.interfaces.ProductClickCallback;
 import com.example.groomver.interfaces.ProductListCallback;
 import com.example.groomver.models.Product;
-import com.example.groomver.models.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -57,7 +54,7 @@ public class HomeFragment extends Fragment {
         getProductList(new ProductListCallback() {
             @Override
             public void onListReceived(ArrayList<Product> products) {
-                ProductsAdapter adapter = new ProductsAdapter(new ProductClickCallback() {
+                ProductsAdapter adapter = new ProductsAdapter(requireContext(), new ProductClickCallback() {
                     @Override
                     public void onClick(Product product) {
                         Intent intent = new Intent();

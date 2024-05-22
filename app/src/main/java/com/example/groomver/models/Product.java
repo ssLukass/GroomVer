@@ -1,6 +1,6 @@
 package com.example.groomver.models;
 
-import java.io.Serializable;
+import java.util.Objects;
 
 public class Product {
     private String image;
@@ -9,18 +9,41 @@ public class Product {
     private String key;
     private String ownerUID;
     private int price;
+    private boolean isFavorite;
 
     public Product(){
 
     }
 
-    public Product(String image, String title, String description, String key, String ownerUID, int price) {
+    public Product(String image, String title, String description, String key, String ownerUID, int price, boolean isFavorite) {
         this.image = image;
         this.title = title;
         this.description = description;
         this.key = key;
         this.ownerUID = ownerUID;
         this.price = price;
+        this.isFavorite = isFavorite;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return key.equals(product.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     public String getImage() {
