@@ -15,7 +15,7 @@
             android:id="@+id/textViewMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#E1595959"
+            android:background="@drawable/rounded_message_for_the_recipient"
             android:padding="8dp"
             android:text="@string/Friend_message"
             android:textColor="@android:color/white" />

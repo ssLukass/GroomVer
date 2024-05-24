@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Фон для более круглого правого верхнего угла -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:topRightRadius="48dp"
+                android:bottomRightRadius="0dp"
+                android:topLeftRadius="16dp"
+                android:bottomLeftRadius="16dp" /> <!-- Устанавливаем радиус для углов -->
+            <solid android:color="#2C84E3" /> <!-- Цвет фона -->
+        </shape>
+    </item>
+    <!-- Фон для вытянутого правого нижнего угла -->
+    <item android:top="0dp" android:left="0dp" android:right="-16dp" android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <corners android:topRightRadius="16dp"
+                android:bottomRightRadius="32dp"
+                android:topLeftRadius="16dp"
+                android:bottomLeftRadius="16dp" /> <!-- Устанавливаем радиус для углов -->
+            <solid android:color="#2C84E3" /> <!-- Цвет фона -->
+        </shape>
+    </item>
+</layer-list>
