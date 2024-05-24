@@ -1,8 +1,11 @@
 package com.example.groomver.models;
+import java.io.Serializable;
+
+import java.io.Serializable;
 
 import java.util.Objects;
 
-public class Product {
+public class Product implements Serializable {
     private String image;
     private String title;
     private String description;

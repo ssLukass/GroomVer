@@ -57,7 +57,7 @@ public class AddFragment extends Fragment {
 
     private FirebaseAuth auth;
 
-    private ImageView ivProduct;
+    private Button ivProduct;
     private EditText etNameProduct;
     private EditText etDescriptionProduct;
     private EditText etPrice;

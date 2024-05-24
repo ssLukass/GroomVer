@@ -1,0 +1,6 @@
+<!-- button_rounded.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="20dp" /> <!-- Радиус скругления углов, задайте значение по вашему выбору -->
+    <solid android:color="@color/white" /> <!-- Цвет фона кнопки -->
+</shape>

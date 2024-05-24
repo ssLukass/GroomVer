@@ -50,6 +50,7 @@
     <string name="Favourites">Избранное:</string>
     <string name="Ads">Объявления:</string>
     <string name="Exit">Выход из аккаунта</string>
+    <string name="My_ads">На данный момент вы не опубликовали ни одного объявления</string>
 
     <string name="Email">Почта</string>
 
@@ -62,13 +63,17 @@
     <string name="Price_product">Цена товара</string>
     <string name="Back">Назад</string>
     <string name="Publish">Опубликовать</string>
+    <string name="Add_Photo">Добавить фотографию</string>
 
 
     <string name="Product_publish">Продукт опубликован</string>
     <string name="Error_product_publish">Ошибка при публикации продукта</string>
 
 
-
+    <string name="Write_A_Message">Написать сообщение</string>
     <string name="Friend_message">Сообщение друга</string>
     <string name="My_message">Мое сообщение</string>
+    <string name="Send">Отправить</string>
+    
+    <string name="Wellcome_Main">Добро пожаловать в GroomVer</string>
 </resources>

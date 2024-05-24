@@ -4,16 +4,17 @@ public class Chat {
     private String userName;
     private String userAvatar;
     private long timestamp;
-    private String Key;
+    private String companionKey;
     private String text;
+    private String email;
 
-
-    public Chat(String userName, String userAvatar, long timestamp, String text, String Key) {
+    public Chat(String userName, String userAvatar, long timestamp, String text, String email, String companionKey) {
         this.userName = userName;
         this.userAvatar = userAvatar;
         this.timestamp = timestamp;
         this.text = text;
-        this.Key = Key;
+        this.email = email;
+        this.companionKey = companionKey;
     }
 
     public String getUserName() {
@@ -48,11 +49,19 @@ public class Chat {
         this.text = text;
     }
 
-    public String getKey() {
-        return Key;
+    public String getEmail() {
+        return email;
     }
 
-    public void setKey(String Key) {
-        this.Key = Key;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCompanionKey() {
+        return companionKey;
+    }
+
+    public void setCompanionKey(String companionKey) {
+        this.companionKey = companionKey;
     }
 }
