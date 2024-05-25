@@ -8,7 +8,7 @@
     <item
         android:id="@+id/page_seatch"
         android:title="@string/Search"
-        android:icon="@drawable/search"/>
+        android:icon="@drawable/search" />
 
     <item
         android:id="@+id/page_add"
@@ -17,7 +17,7 @@
 
     <item
         android:id="@+id/page_masseges"
-        android:title="@string/Messeges"
+        android:title="@string/Messages"
         android:icon="@drawable/chat"/>
 
     <item

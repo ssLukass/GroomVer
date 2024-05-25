@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.groomver.R;
 import com.example.groomver.interfaces.OnDataUserReceivedCallback;
 import com.example.groomver.interfaces.OnProductReceivedCallback;
@@ -25,9 +28,21 @@ public class DetailsActivity extends AppCompatActivity {
     private DatabaseReference products;
     private DatabaseReference users;
 
+    private ImageView ivProductImage;
+    private TextView tvProductTitle;
+    private TextView tvProductPrice;
+    private TextView tvProductDescription;
+    private ImageView ivUserAvatar;
+    private TextView tvUserName;
     private Button btnWrite;
 
     private void initViews(){
+        ivProductImage = findViewById(R.id.iv_product_image);
+        tvProductTitle = findViewById(R.id.tv_product_title);
+        tvProductPrice = findViewById(R.id.tv_product_price);
+        tvProductDescription = findViewById(R.id.tv_product_description);
+        ivUserAvatar = findViewById(R.id.iv_user_avatar);
+        tvUserName = findViewById(R.id.tv_user_name);
         btnWrite = findViewById(R.id.btn_write);
     }
 
@@ -47,18 +62,34 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String productKey = intent.getStringExtra("PRODUCT_ID");
-        Log.d("KLASDLKASD", productKey);
+        Log.d("ProductKey", productKey);
 
         getProductByKey(productKey, product -> {
-            // Заполнить все View
+            // Заполнить все View данными продукта
+            if (product != null) {
+                Glide.with(this)
+                        .load(product.getImage())
+                        .into(ivProductImage);
+                tvProductTitle.setText(product.getTitle());
+                tvProductPrice.setText(String.format("₸%d", product.getPrice()));
+                tvProductDescription.setText(product.getDescription());
 
-            getUserByOwnerUid(product.getOwnerUID(), user -> {
-                btnWrite.setOnClickListener(view ->{
-                    Intent newIntent = new Intent(DetailsActivity.this, ChatActivity.class);
-                    newIntent.putExtra("companionKey", user.getKey());
-                    startActivity(newIntent);
+                // Получить данные пользователя и заполнить их
+                getUserByOwnerUid(product.getOwnerUID(), user -> {
+                    if (user != null) {
+                        Glide.with(this)
+                                .load(user.getAvatar())
+                                .into(ivUserAvatar);
+                        tvUserName.setText(user.getUserName());
+
+                        btnWrite.setOnClickListener(view ->{
+                            Intent newIntent = new Intent(DetailsActivity.this, ChatActivity.class);
+                            newIntent.putExtra("companionKey", user.getKey());
+                            startActivity(newIntent);
+                        });
+                    }
                 });
-            });
+            }
         });
     }
 
@@ -100,4 +131,3 @@ public class DetailsActivity extends AppCompatActivity {
                 });
     }
 }
-

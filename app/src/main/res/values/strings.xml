@@ -40,7 +40,7 @@
     <string name="Home">Главная</string>
     <string name="Search">Поиск</string>
     <string name="Add">Добавить</string>
-    <string name="Messeges">Сообщения</string>
+    <string name="Messages">Сообщения</string>
     <string name="Profile">Профиль</string>
    
     <!-- Profile-->
@@ -74,6 +74,7 @@
     <string name="User_message">Сообщение пользователя</string>
     <string name="My_message">Мое сообщение</string>
     <string name="Send">Отправить</string>
+    <string name="Message">Сообщение</string>
     
     <string name="Wellcome_Main">Добро пожаловать в GroomVer</string>
 
