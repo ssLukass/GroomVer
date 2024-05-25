@@ -4,16 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.groomver.R;
+import com.example.groomver.fragments.ChatFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import com.example.groomver.fragments.AddFragment;
 import com.example.groomver.fragments.HomeFragment;
-import com.example.groomver.fragments.ChatListFragment;
 import com.example.groomver.fragments.ProfileFragment;
 import com.example.groomver.fragments.SearchFragment;
 
@@ -27,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         getSupportFragmentManager()
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.page_add) {
                     fragment = new AddFragment();
                 }else if (item.getItemId() == R.id.page_masseges){
-                    fragment = new ChatListFragment();
+                    fragment = new ChatFragment();
                 }else {
                     fragment = new ProfileFragment();
                 }

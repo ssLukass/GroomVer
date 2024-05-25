@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.groomver.R;
 import com.example.groomver.interfaces.OnDataUserReceivedCallback;
+import com.example.groomver.models.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -186,9 +187,11 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    Auth.getDatabaseCurrentUser(user ->{
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    });
                 } else {
                     try {
                         throw task.getException();

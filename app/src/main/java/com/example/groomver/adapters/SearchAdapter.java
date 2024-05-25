@@ -13,11 +13,11 @@ import com.example.groomver.R;
 import com.example.groomver.models.Product;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ProductViewHolder> {
 
     private List<Product> productList;
 
-    public ProductAdapter(List<Product> productList) {
+    public SearchAdapter(List<Product> productList) {
         this.productList = productList;
     }
 

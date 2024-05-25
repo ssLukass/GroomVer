@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.groomver.R;
+import com.example.groomver.models.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -48,7 +49,6 @@ public class RegisterActivity extends AppCompatActivity {
         etRepeatPassword = findViewById(R.id.repeat_password);
 
         registerButton.setOnClickListener(v -> validateData());
-
     }
 
     /**
@@ -190,8 +190,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         users.setValue(user);
 
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        Auth.getDatabaseCurrentUser(us ->{
+            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 }

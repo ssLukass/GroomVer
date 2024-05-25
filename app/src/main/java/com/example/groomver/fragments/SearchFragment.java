@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.groomver.R;
-import com.example.groomver.adapters.ProductAdapter;
+import com.example.groomver.adapters.SearchAdapter;
 import com.example.groomver.models.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +27,7 @@ public class SearchFragment extends Fragment {
 
     private EditText etSearch;
     private RecyclerView rvSearchResults;
-    private ProductAdapter productAdapter;
+    private SearchAdapter searchAdapter;
     private List<Product> productList;
 
     private FirebaseDatabase db;
@@ -46,8 +46,8 @@ public class SearchFragment extends Fragment {
         rvSearchResults = view.findViewById(R.id.rvSearchResults);
         rvSearchResults.setLayoutManager(new LinearLayoutManager(getContext()));
         productList = new ArrayList<>();
-        productAdapter = new ProductAdapter(productList);
-        rvSearchResults.setAdapter(productAdapter);
+        searchAdapter = new SearchAdapter(productList);
+        rvSearchResults.setAdapter(searchAdapter);
 
         db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
 
@@ -78,7 +78,7 @@ public class SearchFragment extends Fragment {
                             Product product = ds.getValue(Product.class);
                             productList.add(product);
                         }
-                        productAdapter.notifyDataSetChanged();
+                        searchAdapter.notifyDataSetChanged();
                     }
 
                     @Override

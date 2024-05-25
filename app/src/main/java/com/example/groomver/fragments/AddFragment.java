@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import com.example.groomver.R;
 import com.example.groomver.interfaces.ImageUploadCallback;
 import com.example.groomver.interfaces.OnDataUserReceivedCallback;
+import com.example.groomver.models.Auth;
 import com.example.groomver.models.Product;
 import com.example.groomver.models.User;
 import com.google.android.gms.tasks.Continuation;

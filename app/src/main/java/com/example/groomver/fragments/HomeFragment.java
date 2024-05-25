@@ -22,6 +22,7 @@ import com.example.groomver.interfaces.ProductListCallback;
 import com.example.groomver.models.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
     private FirebaseDatabase db;
     private RecyclerView rvProducts;
+    private ValueEventListener listener;
 
     private void init(View view){
         db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -72,7 +74,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getProductList(ProductListCallback callback){
-        db.getReference("products").addValueEventListener(new ValueEventListener() {
+        listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Product> products = new ArrayList<>();
@@ -88,6 +90,14 @@ public class HomeFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        };
+
+        db.getReference("products").addValueEventListener(listener);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        listener = null;
     }
 }
