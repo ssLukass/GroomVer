@@ -76,6 +76,7 @@ public class Auth{
 
 
 
+
     public static void updateUserInFireBase(User user){
         users.child(user.getKey()).setValue(user);
         currentUser = user;

@@ -1,6 +1,7 @@
 package com.example.groomver.adapters;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             itemView.setOnClickListener(view ->{
                 listener.onChatClicked(chat, position);
             });
-
         }
     }
 
@@ -72,8 +72,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                     .getDrawable(R.drawable.profile));
         }
         if (!TextUtils.isEmpty(chat.getUserName())){
+            Log.d("ASKDAKLSD", chat.getUserName());
             holder.userName.setText(chat.getUserName());
         }else{
+            Log.d("ASKDAKLSD", chat.getEmail());
             holder.userName.setText(chat.getEmail());
         }
         if (chat.getText().length() > 30){

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.groomver.Activity.DetailsActivity;
 import com.example.groomver.R;
 import com.example.groomver.adapters.ProductsAdapter;
 import com.example.groomver.interfaces.ProductClickCallback;
@@ -59,9 +60,9 @@ public class HomeFragment extends Fragment {
                 ProductsAdapter adapter = new ProductsAdapter(requireContext(), new ProductClickCallback() {
                     @Override
                     public void onClick(Product product) {
-                        Intent intent = new Intent();
-                        intent.putExtra("PRORUDCT_ID", product.getKey());
-                        Toast.makeText(requireActivity(), product.getKey(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(requireActivity(), DetailsActivity.class);
+                        intent.putExtra("PRODUCT_ID", product.getKey());
+                        startActivity(intent);
                     }
                 });
 

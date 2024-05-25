@@ -131,7 +131,8 @@ public class ChatFragment extends Fragment {
                                     @Override
                                     public void onUserReceived(User user) {
                                         companionUser = user;
-                                        Chat chat = new Chat(companionUser.getUID(),
+                                        Chat chat = new Chat(
+                                                companionUser.getUserName(),
                                                 companionUser.getAvatar(),
                                                 lastMessage[0].getTimeStamp(),
                                                 lastMessage[0].getText(),
