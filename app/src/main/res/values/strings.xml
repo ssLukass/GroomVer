@@ -71,9 +71,13 @@
 
 
     <string name="Write_A_Message">Написать сообщение</string>
-    <string name="Friend_message">Сообщение друга</string>
+    <string name="User_message">Сообщение пользователя</string>
     <string name="My_message">Мое сообщение</string>
     <string name="Send">Отправить</string>
     
     <string name="Wellcome_Main">Добро пожаловать в GroomVer</string>
+
+
+    <string name="Instructions_For_Password_Reset_Have_Been_Sent_To_Your_Email">Инструкции по сбросу пароля отправлены на ваш email</string>
+    <string name="An_Error_Occurred_When_Sending_Instructions_To_Reset_The_Password_Please_Try_Again.">Ошибка при отправке инструкций по сбросу пароля. Пожалуйста, попробуйте еще раз</string>
 </resources>

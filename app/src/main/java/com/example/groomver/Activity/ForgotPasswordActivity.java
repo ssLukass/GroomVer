@@ -48,7 +48,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "Введите адрес электронной почты", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.Enter_Email), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -59,9 +59,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
 
-                            Toast.makeText(getApplicationContext(), "Инструкции по сбросу пароля отправлены на ваш email", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.Instructions_For_Password_Reset_Have_Been_Sent_To_Your_Email), Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Ошибка при отправке инструкций по сбросу пароля. Пожалуйста, попробуйте еще раз", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.An_Error_Occurred_When_Sending_Instructions_To_Reset_The_Password_Please_Try_Again_), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
