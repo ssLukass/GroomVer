@@ -1,4 +1,3 @@
-
 package com.example.groomver.adapters;
 
 import android.view.LayoutInflater;
@@ -15,16 +14,22 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ProductViewHolder> {
 
-    private List<Product> productList;
+    public interface ProductClickCallback {
+        void onClick(Product product);
+    }
 
-    public SearchAdapter(List<Product> productList) {
+    private List<Product> productList;
+    private ProductClickCallback clickCallback;
+
+    public SearchAdapter(List<Product> productList, ProductClickCallback clickCallback) {
         this.productList = productList;
+        this.clickCallback = clickCallback;
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item_search, parent, false);
         return new ProductViewHolder(view);
     }
 
@@ -38,6 +43,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ProductVie
                     .load(product.getImage())
                     .into(holder.ivProductImage);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCallback.onClick(product);
+            }
+        });
     }
 
     @Override

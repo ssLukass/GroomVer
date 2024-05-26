@@ -1,9 +1,9 @@
 package com.example.groomver.fragments;
 
 import static android.app.Activity.RESULT_OK;
-import static android.widget.Toast.LENGTH_SHORT;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -12,9 +12,9 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -27,11 +27,10 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.groomver.Activity.LoginActivity;
 import com.example.groomver.R;
 import com.example.groomver.interfaces.OnDataUserReceivedCallback;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.groomver.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,8 +43,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-
-import com.example.groomver.models.User;
 
 public class ProfileFragment extends Fragment {
 
@@ -98,7 +95,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toast.makeText(getContext(), getString(R.string.Profile), LENGTH_SHORT).show();
+
 
         init(view);
 
@@ -110,6 +107,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
+        Button buttonExit = view.findViewById(R.id.button_exit);
+        buttonExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutUser();
+            }
+        });
     }
 
     private void uploadImage(Bitmap bitmap) {
@@ -121,20 +126,25 @@ public class ProfileFragment extends Fragment {
         StorageReference currentImage = profileImages.child(System.currentTimeMillis() + "");
         UploadTask uploadTask = currentImage.putBytes(bytes);
 
-        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                return currentImage.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    myUser.setAvatar(task.getResult().toString());
-                    updateUserInFireBase(myUser);
-                }
-            }
-        });
+        uploadTask.continueWithTask(task -> currentImage.getDownloadUrl())
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        myUser.setAvatar(task.getResult().toString());
+                        updateUserInFireBase(myUser);
+                    }
+                });
+    }
+
+    private void logoutUser() {
+
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("UserData", getContext().MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+
+
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     public void updateUserInFireBase(User user) {
@@ -160,13 +170,11 @@ public class ProfileFragment extends Fragment {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            // Handle onCancelled
+
                         }
                     });
         }
     }
-
-
 
     private void init(View view) {
         storage = FirebaseStorage.getInstance();

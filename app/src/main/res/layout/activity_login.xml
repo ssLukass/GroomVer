@@ -16,28 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/Entrance"
-        android:textColor="#7431A9"
-        android:textSize="45sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_logo" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="178dp"
         android:layout_height="162dp"
         android:layout_marginStart="100dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="100dp"
         android:src="@drawable/groomver_icon_round"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.575"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view" />
+        app:layout_constraintTop_toBottomOf="@id/image_logo" />
 
     <LinearLayout
         android:id="@+id/passwdEmailLayout"
@@ -100,7 +90,7 @@
         android:id="@+id/forget_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:text="@string/Forget_password"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -119,12 +109,13 @@
         android:background="@drawable/button"
         android:padding="2dp"
         android:text="@string/Enter"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/forget_password"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.186" />
 
     <TextView
         android:id="@+id/tv_dont_have_account"

@@ -1,8 +1,6 @@
 package com.example.groomver.models;
-import java.io.Serializable;
 
 import java.io.Serializable;
-
 import java.util.Objects;
 
 public class Product implements Serializable {
@@ -13,12 +11,11 @@ public class Product implements Serializable {
     private String ownerUID;
     private int price;
     private boolean isFavorite;
+    private long creationDate;
 
-    public Product(){
+    public Product() {}
 
-    }
-
-    public Product(String image, String title, String description, String key, String ownerUID, int price, boolean isFavorite) {
+    public Product(String image, String title, String description, String key, String ownerUID, int price, boolean isFavorite, long creationDate) {
         this.image = image;
         this.title = title;
         this.description = description;
@@ -26,6 +23,17 @@ public class Product implements Serializable {
         this.ownerUID = ownerUID;
         this.price = price;
         this.isFavorite = isFavorite;
+        this.creationDate = creationDate;
+    }
+
+
+
+    public long getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(long creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Override
@@ -97,5 +105,3 @@ public class Product implements Serializable {
         this.price = price;
     }
 }
-
-

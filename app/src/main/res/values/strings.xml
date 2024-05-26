@@ -6,7 +6,6 @@
 
     <string name="Login">E-mail</string>
     <string name="Password">Пароль</string>
-    <string name="Remember_me">Запомнить меня</string>
     <string name="Forget_password">Забыли пароль?</string>
     <string name="Enter">Войти</string>
     <string name="Register">Зарегистрироваться</string>
@@ -18,7 +17,7 @@
     <string name="Create_accout_complite">Аккаунт успешно создан</string>
     <string name="Error">Ошибка</string>
     <string name="Enter_Email">Заполните "Email"</string>
-    <string name="Enter_User_Name">Заполните "Имя пользователя"</string>
+    <string name="Enter_User_Name">Придумайте Имя пользователя</string>
     <string name="Enter_Create_Password">Заполните "Придумайте пароль"</string>
     <string name="Password_uncorrect">Пароли не совпадают</string>
     <string name="Enter_Password">Введите пароль</string>
@@ -42,7 +41,7 @@
     <string name="Add">Добавить</string>
     <string name="Messages">Сообщения</string>
     <string name="Profile">Профиль</string>
-   
+
     <!-- Profile-->
     <string name="Select_A_Photo_From_The_Gallery">Выберите фотографию из галереи</string>
     <string name="Edit_A_Profile">Редактировать профиль</string>
@@ -75,7 +74,9 @@
     <string name="My_message">Мое сообщение</string>
     <string name="Send">Отправить</string>
     <string name="Message">Сообщение</string>
-    
+
+    <string name="Data">Дата создания:</string>
+
     <string name="Wellcome_Main">Добро пожаловать в GroomVer</string>
 
 

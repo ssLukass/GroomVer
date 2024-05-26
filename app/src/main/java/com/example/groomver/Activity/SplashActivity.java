@@ -3,7 +3,6 @@ package com.example.groomver.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,14 +39,12 @@ public class SplashActivity extends AppCompatActivity {
                     if (user != null) {
                         startActivity(new Intent(SplashActivity.this, HomeFragment.class));
                     } else {
-                        Log.d("SplashActivity", "User not found in database");
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     }
                     finish();
                 }
             });
         } else {
-            Log.d("SplashActivity", "No user is logged in");
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             finish();
         }

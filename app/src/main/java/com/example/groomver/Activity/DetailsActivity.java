@@ -23,6 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class DetailsActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference products;
@@ -34,6 +39,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvProductDescription;
     private ImageView ivUserAvatar;
     private TextView tvUserName;
+    private TextView tvCreationDate;
     private Button btnWrite;
 
     private void initViews(){
@@ -43,6 +49,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvProductDescription = findViewById(R.id.tv_product_description);
         ivUserAvatar = findViewById(R.id.iv_user_avatar);
         tvUserName = findViewById(R.id.tv_user_name);
+        tvCreationDate = findViewById(R.id.tv_creation_date);
         btnWrite = findViewById(R.id.btn_write);
     }
 
@@ -65,7 +72,6 @@ public class DetailsActivity extends AppCompatActivity {
         Log.d("ProductKey", productKey);
 
         getProductByKey(productKey, product -> {
-            // Заполнить все View данными продукта
             if (product != null) {
                 Glide.with(this)
                         .load(product.getImage())
@@ -74,7 +80,16 @@ public class DetailsActivity extends AppCompatActivity {
                 tvProductPrice.setText(String.format("₸%d", product.getPrice()));
                 tvProductDescription.setText(product.getDescription());
 
-                // Получить данные пользователя и заполнить их
+                long creationTimeMillis = product.getCreationDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(creationTimeMillis);
+
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+                String creationDate = sdf.format(new Date(product.getCreationDate()));
+                tvCreationDate.setText("Дата создания: " + creationDate);
+
+
                 getUserByOwnerUid(product.getOwnerUID(), user -> {
                     if (user != null) {
                         Glide.with(this)
