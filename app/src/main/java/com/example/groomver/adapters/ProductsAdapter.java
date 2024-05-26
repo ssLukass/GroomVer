@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.groomver.R;
+import com.example.groomver.interfaces.OnFavoriteClickCallback;
 import com.example.groomver.interfaces.ProductClickCallback;
 import com.example.groomver.models.Product;
 
@@ -26,11 +27,15 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     private static final String FAVORITES_KEY = "product_favorites";
 
     private ProductClickCallback callback;
+
+    private OnFavoriteClickCallback callbackFavorite;
     private ArrayList<Product> products = new ArrayList<>();
     private SharedPreferences sharedPreferences;
 
-    public ProductsAdapter(Context context, ProductClickCallback callback) {
+    public ProductsAdapter(Context context, ProductClickCallback callback,
+                           OnFavoriteClickCallback callbackFavorite) {
         this.callback = callback;
+        this.callbackFavorite = callbackFavorite;
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
@@ -51,26 +56,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     public void setList(ArrayList<Product> products) {
         this.products = products;
-        for (Product product : products) {
-            product.setFavorite(isFavorite(product.getKey()));
-        }
         notifyDataSetChanged();
     }
 
-    private boolean isFavorite(String productId) {
-        Set<String> favorites = sharedPreferences.getStringSet(FAVORITES_KEY, new HashSet<>());
-        return favorites.contains(productId);
-    }
 
-    private void setFavorite(String productId, boolean isFavorite) {
-        Set<String> favorites = sharedPreferences.getStringSet(FAVORITES_KEY, new HashSet<>());
-        if (isFavorite) {
-            favorites.add(productId);
-        } else {
-            favorites.remove(productId);
-        }
-        sharedPreferences.edit().putStringSet(FAVORITES_KEY, favorites).apply();
-    }
 
     @NonNull
     @Override
@@ -106,8 +95,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
                 boolean isSelected = !holder.favorite.isSelected();
                 holder.favorite.setSelected(isSelected);
                 product.setFavorite(isSelected);
-                setFavorite(product.getKey(), isSelected);
                 notifyItemChanged(holder.getAdapterPosition());
+                callbackFavorite.onFavoriteClick(product);
             }
         });
     }

@@ -43,10 +43,10 @@ public class RegisterActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         registerButton = findViewById(R.id.register_button);
-        etEmail = findViewById(R.id.enter_email);
-        etNameInput = findViewById(R.id.name_input);
-        etCreatePassword = findViewById(R.id.create_password);
-        etRepeatPassword = findViewById(R.id.repeat_password);
+        etEmail = findViewById(R.id.etEmail);
+        etNameInput = findViewById(R.id.etUsername);
+        etCreatePassword = findViewById(R.id.etPassword);
+        etRepeatPassword = findViewById(R.id.etRepeatPassword);
 
         registerButton.setOnClickListener(v -> validateData());
     }

@@ -49,6 +49,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Calendar;
 
 public class AddFragment extends Fragment {
 
@@ -154,6 +155,9 @@ public class AddFragment extends Fragment {
         myProduct.setTitle(nameProduct);
         myProduct.setDescription(descriptionProduct);
         myProduct.setPrice(Integer.parseInt(price));
+
+        Calendar calendar = Calendar.getInstance();
+        myProduct.setCreationDate(calendar.getTimeInMillis());
 
         getDatabaseCurrentUser(new OnDataUserReceivedCallback() {
             @Override

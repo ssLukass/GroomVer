@@ -7,6 +7,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.groomver.interfaces.OnDataUserReceivedCallback;
+import com.example.groomver.interfaces.OnSignInCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -74,6 +78,34 @@ public class Auth{
                 });
     }
 
+    public static void signIn(Context context, String email, String passwd, OnSignInCallback l) {
+        auth.signInWithEmailAndPassword(email, passwd)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Auth.getDatabaseCurrentUser(new OnDataUserReceivedCallback() {
+                                @Override
+                                public void onUserReceived(User user) {
+                                    Log.d("inSignIn", "onUserReceived: " + user.getKey());
+                                    SharedPreferences sp = context.getSharedPreferences("UserData",
+                                            Context.MODE_PRIVATE);
+                                    sp.edit().putString("KEY", user.getKey()).apply();
+                                    currentUser = user;
+                                    l.onSignIn(true);
+                                }
+                            });
+
+                        }else{
+                            try {
+                                throw task.getException();
+                            } catch (Exception ex) {
+                                l.onSignIn(false);
+                            }
+                        }
+                    }
+                });
+    }
 
 
 

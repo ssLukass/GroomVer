@@ -81,14 +81,11 @@ public class DetailsActivity extends AppCompatActivity {
                 tvProductDescription.setText(product.getDescription());
 
                 long creationTimeMillis = product.getCreationDate();
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(creationTimeMillis);
-
+                Log.d("ASDLKADKLASKDL", creationTimeMillis + "");
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-                String creationDate = sdf.format(new Date(product.getCreationDate()));
+                String creationDate = sdf.format(new Date(creationTimeMillis));
                 tvCreationDate.setText("Дата создания: " + creationDate);
-
 
                 getUserByOwnerUid(product.getOwnerUID(), user -> {
                     if (user != null) {
@@ -97,7 +94,7 @@ public class DetailsActivity extends AppCompatActivity {
                                 .into(ivUserAvatar);
                         tvUserName.setText(user.getUserName());
 
-                        btnWrite.setOnClickListener(view ->{
+                        btnWrite.setOnClickListener( view ->{
                             Intent newIntent = new Intent(DetailsActivity.this, ChatActivity.class);
                             newIntent.putExtra("companionKey", user.getKey());
                             startActivity(newIntent);

@@ -27,7 +27,9 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.groomver.Activity.FavoriteProductsActivity;
 import com.example.groomver.Activity.LoginActivity;
+import com.example.groomver.Activity.MyProductsActivity;
 import com.example.groomver.R;
 import com.example.groomver.interfaces.OnDataUserReceivedCallback;
 import com.example.groomver.models.User;
@@ -51,7 +53,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseDatabase db;
     private FirebaseAuth auth;
     private TextView userName;
-    private TextView userEmail;
+    private TextView userEmail, tvMyProducts, tvFavorites;
     private User myUser;
 
     private final ActivityResultLauncher<Intent> openGalleryResult = registerForActivityResult(
@@ -99,6 +101,15 @@ public class ProfileFragment extends Fragment {
 
         init(view);
 
+        tvMyProducts.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), MyProductsActivity.class);
+            startActivity(intent);
+        });
+
+        tvFavorites.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), FavoriteProductsActivity.class);
+            startActivity(intent);
+        });
         ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,6 +194,8 @@ public class ProfileFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         userName = view.findViewById(R.id.textview_userName);
         userEmail = view.findViewById(R.id.textview_userEmail);
+        tvMyProducts = view.findViewById(R.id.textview_ads);
+        tvFavorites = view.findViewById(R.id.textview_favorites);
 
         getDatabaseCurrentUser(new OnDataUserReceivedCallback() {
             @Override

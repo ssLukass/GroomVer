@@ -1,11 +1,15 @@
 package com.example.groomver.models;
 
+import java.util.ArrayList;
+
 public class User {
     private String userName;
     private String password;
     private String userEmail;
     private String key;
     private String UID;
+
+    private ArrayList<String> favoriteProducts = new ArrayList<>();
 
     public String getAvatar() {
         return Avatar;
@@ -86,5 +90,21 @@ public class User {
 
     public String getKey(){
         return this.key;
+    }
+
+    public void addToFavorites(Product product){
+        favoriteProducts.add(product.getKey());
+    }
+
+    public void removeFromFavorites(Product product){
+        favoriteProducts.remove(product.getKey());
+    }
+
+    public ArrayList<String> getFavoritesAds() {
+        return favoriteProducts;
+    }
+
+    public void setFavoritesAds(ArrayList<String> arrayList){
+        this.favoriteProducts = arrayList;
     }
 }

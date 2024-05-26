@@ -46,14 +46,12 @@
     <string name="Select_A_Photo_From_The_Gallery">Выберите фотографию из галереи</string>
     <string name="Edit_A_Profile">Редактировать профиль</string>
     <string name="Rating">Рейтинг:</string>
-    <string name="Favourites">Избранное:</string>
-    <string name="Ads">Объявления:</string>
+    <string name="Favourites">Мои избранные</string>
+    <string name="Ads">Мои объявления</string>
     <string name="Exit">Выход из аккаунта</string>
     <string name="My_ads">На данный момент вы не опубликовали ни одного объявления</string>
 
     <string name="Email">Почта</string>
-
-
 
 
     <!--Add-->
