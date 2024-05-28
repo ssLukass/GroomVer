@@ -2,7 +2,6 @@ package com.example.groomver.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +22,7 @@ public class MyProductsActivity extends AppCompatActivity {
     private ActivityMyProductsBinding binding;
     private FirebaseDatabase database;
 
-    private void init(){
+    private void init() {
         database = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
     }
 
@@ -38,34 +37,29 @@ public class MyProductsActivity extends AppCompatActivity {
         database.getReference("products")
                 .orderByChild("ownerUID")
                 .equalTo(Auth.getCurrentUser().getUID())
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            ArrayList<Product> productsList = new ArrayList<>();
-                            for(DataSnapshot productSnapshot : snapshot.getChildren()){
-                                Product product = productSnapshot.getValue(Product.class);
-                                productsList.add(product);
-                            }
-
-//                            if(productsList.isEmpty()){
-//
-//                            }
-
-                            MyProductsAdapter adapter = new MyProductsAdapter(productsList, product -> {
-                                Intent intent = new Intent(MyProductsActivity.this, DetailsActivity.class);
-                                intent.putExtra("PRODUCT_ID", product.getKey());
-                                startActivity(intent);
-                            });
-
-                            binding.recyclerViewProducts.setAdapter(adapter);
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList<Product> productsList = new ArrayList<>();
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            productsList.add(product);
                         }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                        MyProductsAdapter adapter = new MyProductsAdapter(productsList, product -> {
+                            Intent intent = new Intent(MyProductsActivity.this, DetailsActivity.class);
+                            intent.putExtra("PRODUCT_ID", product.getKey());
+                            startActivity(intent);
+                        }, MyProductsActivity.this);
 
-                        }
-                    });
+                        binding.recyclerViewProducts.setAdapter(adapter);
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     @Override

@@ -1,18 +1,21 @@
 package com.example.groomver.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.groomver.R;
 import com.example.groomver.models.Auth;
+import com.example.groomver.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,13 +25,13 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import com.example.groomver.models.User;
-
 public class RegisterActivity extends AppCompatActivity {
 
 
     private Button registerButton;
     private EditText etEmail, etNameInput, etCreatePassword, etRepeatPassword;
+
+    private TextView tvHaveAccount;
 
     private FirebaseDatabase db;
     private FirebaseAuth auth;
@@ -47,8 +50,19 @@ public class RegisterActivity extends AppCompatActivity {
         etNameInput = findViewById(R.id.etUsername);
         etCreatePassword = findViewById(R.id.etPassword);
         etRepeatPassword = findViewById(R.id.etRepeatPassword);
+        tvHaveAccount = findViewById(R.id.tv_have_account);
+
+        tvHaveAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         registerButton.setOnClickListener(v -> validateData());
+
     }
 
     /**

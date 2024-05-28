@@ -2,8 +2,10 @@ package com.example.groomver.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -45,6 +47,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Locale;
 
 public class ProfileFragment extends Fragment {
 
@@ -78,7 +81,7 @@ public class ProfileFragment extends Fragment {
 
                                         @Override
                                         public void onLoadCleared(@Nullable Drawable placeholder) {
-                                            // This can be empty
+
                                         }
                                     });
                         } catch (Exception exception) {
@@ -126,7 +129,39 @@ public class ProfileFragment extends Fragment {
                 logoutUser();
             }
         });
+
+        Button buttonLanguage = view.findViewById(R.id.button_language);
+        buttonLanguage.setOnClickListener(v -> switchLanguage());
     }
+
+    private void switchLanguage() {
+        // Получаем текущий язык из настроек
+        SharedPreferences preferences = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        String currentLanguage = preferences.getString("language", "ru");
+
+        // Определяем новый язык
+        String newLanguage = currentLanguage.equals("ru") ? "kk" : "ru";
+
+        // Сохраняем новый язык в настройках
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("language", newLanguage);
+        editor.apply();
+
+        // Устанавливаем новый язык для приложения
+        Locale newLocale = new Locale(newLanguage);
+        Locale.setDefault(newLocale);
+        Configuration configuration = getResources().getConfiguration();
+        configuration.setLocale(newLocale);
+        Context context = getActivity().createConfigurationContext(configuration);
+
+        // Обновляем ресурсы приложения
+        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+
+        // Перезапускаем текущую активность
+        getActivity().recreate();
+    }
+
+
 
     private void uploadImage(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -174,7 +209,7 @@ public class ProfileFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot ds : snapshot.getChildren()) {
                                 User user = ds.getValue(User.class);
-                                listener.onUserReceived(user); // Pass the user object to the listener
+                                listener.onUserReceived(user);
                                 break;
                             }
                         }

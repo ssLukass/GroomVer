@@ -1,5 +1,8 @@
 package com.example.groomver.adapters;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +14,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.groomver.R;
-import com.example.groomver.interfaces.OnFavoriteClickCallback;
 import com.example.groomver.interfaces.ProductClickCallback;
 import com.example.groomver.models.Product;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class MyProductsAdapter extends RecyclerView.Adapter<MyProductsAdapter.ProductViewHolder> {
-    private ArrayList<Product> list = new ArrayList();
+    private static final String TAG = "MyProductsAdapter";
+    private ArrayList<Product> list;
     private ProductClickCallback callback;
+    private Context context;
 
+    public MyProductsAdapter(ArrayList<Product> list, ProductClickCallback callback, Context context) {
+        this.list = list;
+        this.callback = callback;
+        this.context = context;
+    }
 
     public void setList(ArrayList<Product> list) {
         this.list = list;
@@ -41,11 +51,6 @@ public class MyProductsAdapter extends RecyclerView.Adapter<MyProductsAdapter.Pr
         }
     }
 
-    public MyProductsAdapter(ArrayList<Product> list, ProductClickCallback callback) {
-        this.list = list;
-        this.callback = callback;
-    }
-
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -63,13 +68,33 @@ public class MyProductsAdapter extends RecyclerView.Adapter<MyProductsAdapter.Pr
                 .load(product.getImage())
                 .into(holder.image);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(v -> callback.onClick(product));
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.onClick(product);
+                new AlertDialog.Builder(context)
+                        .setTitle(R.string.Delete_Ad)
+                        .setMessage(R.string.Are_You_Sure_You_Want_To_Delete_This_Ad)
+                        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String productKey = product.getKey();
+                                FirebaseDatabase.getInstance().getReference("products")
+                                        .child(productKey)
+                                        .removeValue();
+                            }
+                        })
+                        .setNegativeButton(R.string.No, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create()
+                        .show();
             }
         });
-
     }
 
     @Override

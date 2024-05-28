@@ -9,12 +9,8 @@ import android.text.TextUtils;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.groomver.R;
-import com.example.groomver.fragments.HomeFragment;
-import com.example.groomver.interfaces.OnDataUserReceivedCallback;
 import com.example.groomver.interfaces.OnSignInCallback;
 import com.example.groomver.models.Auth;
-import com.example.groomver.models.User;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
 

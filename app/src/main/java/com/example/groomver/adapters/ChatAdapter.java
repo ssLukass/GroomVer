@@ -94,7 +94,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.timestamp.setText(format.format(timestamp));
         }else{
             format = new SimpleDateFormat("HH:mm");
-            holder.timestamp.setText("Сегодня" + " " + format.format(timestamp));
+            holder.timestamp.setText(R.string.Today + " " + format.format(timestamp));
         }
     }
 

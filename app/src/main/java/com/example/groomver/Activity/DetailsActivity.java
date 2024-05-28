@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -36,6 +35,7 @@ public class DetailsActivity extends AppCompatActivity {
     private ImageView ivProductImage;
     private TextView tvProductTitle;
     private TextView tvProductPrice;
+    private TextView tvProductCity;
     private TextView tvProductDescription;
     private ImageView ivUserAvatar;
     private TextView tvUserName;
@@ -46,6 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
         ivProductImage = findViewById(R.id.iv_product_image);
         tvProductTitle = findViewById(R.id.tv_product_title);
         tvProductPrice = findViewById(R.id.tv_product_price);
+        tvProductCity = findViewById(R.id.tv_product_city);
         tvProductDescription = findViewById(R.id.tv_product_description);
         ivUserAvatar = findViewById(R.id.iv_user_avatar);
         tvUserName = findViewById(R.id.tv_user_name);
@@ -78,6 +79,7 @@ public class DetailsActivity extends AppCompatActivity {
                         .into(ivProductImage);
                 tvProductTitle.setText(product.getTitle());
                 tvProductPrice.setText(String.format("₸%d", product.getPrice()));
+                tvProductCity.setText(product.getCity());
                 tvProductDescription.setText(product.getDescription());
 
                 long creationTimeMillis = product.getCreationDate();
@@ -85,7 +87,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
                 String creationDate = sdf.format(new Date(creationTimeMillis));
-                tvCreationDate.setText("Дата создания: " + creationDate);
+                tvCreationDate.setText(getString(R.string.Data) + creationDate);
 
                 getUserByOwnerUid(product.getOwnerUID(), user -> {
                     if (user != null) {

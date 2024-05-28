@@ -83,7 +83,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void searchProducts(String query) {
-        Log.d(TAG, "Searching for products with query: " + query);
+
         final String lowerCaseQuery = query.toLowerCase();
         DatabaseReference productsRef = db.getReference("products");
         productsRef.orderByChild("title").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -100,7 +100,7 @@ public class SearchFragment extends Fragment {
                     }
                 }
                 searchAdapter.notifyDataSetChanged();
-                Log.d(TAG, "Number of products found: " + productList.size());
+
             }
 
             @Override

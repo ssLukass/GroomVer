@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.example.groomver.R;
 import com.example.groomver.adapters.MessagesAdapter;
 import com.example.groomver.databinding.ActivityChatBinding;
-import com.example.groomver.interfaces.OnAvatarClickListened;
 import com.example.groomver.models.Auth;
 import com.example.groomver.models.Message;
 import com.example.groomver.models.User;

@@ -12,10 +12,12 @@ public class Product implements Serializable {
     private int price;
     private boolean isFavorite;
     private long creationDate;
+    private String city;
+
 
     public Product() {}
 
-    public Product(String image, String title, String description, String key, String ownerUID, int price, boolean isFavorite, long creationDate) {
+    public Product(String image, String title, String description, String key, String ownerUID, int price, boolean isFavorite, long creationDate, String city) {
         this.image = image;
         this.title = title;
         this.description = description;
@@ -24,6 +26,7 @@ public class Product implements Serializable {
         this.price = price;
         this.isFavorite = isFavorite;
         this.creationDate = creationDate;
+        this.city = city;
     }
 
 
@@ -103,5 +106,13 @@ public class Product implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
