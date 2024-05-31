@@ -3,6 +3,7 @@ package com.example.groomver.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,9 +81,12 @@ public class MyProductsAdapter extends RecyclerView.Adapter<MyProductsAdapter.Pr
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String productKey = product.getKey();
-                                FirebaseDatabase.getInstance().getReference("products")
+                                FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/").getReference("products")
                                         .child(productKey)
                                         .removeValue();
+                                list.remove(product);
+                                notifyDataSetChanged();
+                                Log.d("Delete4234", productKey);
                             }
                         })
                         .setNegativeButton(R.string.No, new DialogInterface.OnClickListener() {

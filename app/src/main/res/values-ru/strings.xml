@@ -95,4 +95,6 @@
 
     <!--The rest-->
     <string name="Today">Сегодня</string>
+    <string name="Its_Still_Empty_Here">Здесь пока пусто.</string>
+    <string name="You_dont_Have_Anything_In_Your_Favorites.">У вас нет ничего в Избранном.</string>
 </resources>

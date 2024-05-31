@@ -2,6 +2,7 @@ package com.example.groomver.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +45,14 @@ public class MyProductsActivity extends AppCompatActivity {
                         for (DataSnapshot productSnapshot : snapshot.getChildren()) {
                             Product product = productSnapshot.getValue(Product.class);
                             productsList.add(product);
+                        }
+
+                        if (productsList.isEmpty()) {
+                            binding.recyclerViewProducts.setVisibility(View.GONE);
+                            binding.tvFavorite.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.recyclerViewProducts.setVisibility(View.VISIBLE);
+                            binding.tvFavorite.setVisibility(View.GONE);
                         }
 
                         MyProductsAdapter adapter = new MyProductsAdapter(productsList, product -> {

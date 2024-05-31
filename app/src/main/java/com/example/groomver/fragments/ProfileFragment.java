@@ -2,10 +2,8 @@ package com.example.groomver.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -47,7 +45,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Locale;
 
 public class ProfileFragment extends Fragment {
 
@@ -101,7 +98,6 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         init(view);
 
         tvMyProducts.setOnClickListener(v -> {
@@ -113,53 +109,19 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(requireContext(), FavoriteProductsActivity.class);
             startActivity(intent);
         });
-        ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                openGalleryResult.launch(intent);
-            }
-        });
 
+        ivAvatar.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            openGalleryResult.launch(intent);
+        });
 
         Button buttonExit = view.findViewById(R.id.button_exit);
-        buttonExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logoutUser();
-            }
-        });
+        buttonExit.setOnClickListener(v -> logoutUser());
 
-        Button buttonLanguage = view.findViewById(R.id.button_language);
-        buttonLanguage.setOnClickListener(v -> switchLanguage());
+
     }
 
-    private void switchLanguage() {
-        // Получаем текущий язык из настроек
-        SharedPreferences preferences = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
-        String currentLanguage = preferences.getString("language", "ru");
 
-        // Определяем новый язык
-        String newLanguage = currentLanguage.equals("ru") ? "kk" : "ru";
-
-        // Сохраняем новый язык в настройках
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("language", newLanguage);
-        editor.apply();
-
-        // Устанавливаем новый язык для приложения
-        Locale newLocale = new Locale(newLanguage);
-        Locale.setDefault(newLocale);
-        Configuration configuration = getResources().getConfiguration();
-        configuration.setLocale(newLocale);
-        Context context = getActivity().createConfigurationContext(configuration);
-
-        // Обновляем ресурсы приложения
-        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
-
-        // Перезапускаем текущую активность
-        getActivity().recreate();
-    }
 
 
 

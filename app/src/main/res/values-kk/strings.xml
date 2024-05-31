@@ -94,4 +94,6 @@
 
     <!--The rest-->
     <string name="Today">Бүгін</string>
+    <string name="Its_Still_Empty_Here">Бұл жерде әлі бос.</string>
+    <string name="You_dont_Have_Anything_In_Your_Favorites.">Сізде таңдаулылар туралы ештеңе жоқ.</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.groomver.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -74,9 +75,13 @@ public class DetailsActivity extends AppCompatActivity {
 
         getProductByKey(productKey, product -> {
             if (product != null) {
-                Glide.with(this)
-                        .load(product.getImage())
-                        .into(ivProductImage);
+                if (TextUtils.isEmpty(product.getImage())) {
+                    Glide.with(this).load(R.drawable.no_image).into(ivProductImage);
+                } else {
+                    Glide.with(this)
+                            .load(product.getImage())
+                            .into(ivProductImage);
+                }
                 tvProductTitle.setText(product.getTitle());
                 tvProductPrice.setText(String.format("₸%d", product.getPrice()));
                 tvProductCity.setText(product.getCity());
@@ -91,9 +96,13 @@ public class DetailsActivity extends AppCompatActivity {
 
                 getUserByOwnerUid(product.getOwnerUID(), user -> {
                     if (user != null) {
-                        Glide.with(this)
-                                .load(user.getAvatar())
-                                .into(ivUserAvatar);
+                        if (TextUtils.isEmpty(product.getImage())) {
+                            Glide.with(this).load(R.drawable.profile).into(ivUserAvatar);
+                        } else {
+                            Glide.with(this)
+                                    .load(product.getImage())
+                                    .into(ivUserAvatar);
+                        }
                         tvUserName.setText(user.getUserName());
 
                         btnWrite.setOnClickListener( view ->{

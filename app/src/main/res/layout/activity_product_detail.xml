@@ -140,11 +140,10 @@
 
             <Button
                 android:id="@+id/btn_write"
-                android:layout_width="60dp"
+                android:layout_width="55dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/button_rounded"
-                android:contentDescription="@string/Write_A_Message"
+                android:backgroundTint="@color/white"
                 android:drawableRight="@drawable/ic_baseline_chat_24"
                 android:drawablePadding="8dp"
                 android:gravity="center" />

@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GroomVer"
         tools:targetApi="31">
-
         <activity
             android:name=".Activity.FavoriteProductsActivity"
             android:exported="false" />
@@ -27,11 +26,10 @@
         <activity
             android:name=".Activity.MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustNothing"
-            android:configChanges="locale|layoutDirection" />
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.LoginActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".Activity.ChatActivity"
             android:exported="false" />

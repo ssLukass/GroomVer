@@ -45,7 +45,6 @@
     <!-- Profile-->
     <string name="Select_A_Photo_From_The_Gallery">Выберите фотографию из галереи</string>
     <string name="Edit_A_Profile">Редактировать профиль</string>
-    <string name="Rating">Рейтинг:</string>
     <string name="Favourites">Мои избранные</string>
     <string name="Ads">Мои объявления</string>
     <string name="Exit">Выход из аккаунта</string>
@@ -95,4 +94,6 @@
 
     <!--The rest-->
     <string name="Today">Сегодня</string>
+    <string name="Its_Still_Empty_Here">Здесь пока пусто.</string>
+    <string name="You_dont_Have_Anything_In_Your_Favorites.">У вас нет ничего в Избранном.</string>
 </resources>

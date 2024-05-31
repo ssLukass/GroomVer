@@ -2,6 +2,7 @@ package com.example.groomver.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,6 @@ import com.example.groomver.interfaces.ProductClickCallback;
 import com.example.groomver.models.Product;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHolder> {
 
@@ -60,7 +59,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     }
 
 
-
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -76,9 +74,13 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         Product product = products.get(position);
         holder.title.setText(product.getTitle());
         holder.price.setText(product.getPrice() + " ₸");
-        Glide.with(holder.itemView.getContext())
-                .load(product.getImage())
-                .into(holder.image);
+        if (TextUtils.isEmpty(product.getImage())) {
+            Glide.with(holder.itemView.getContext()).load(R.drawable.ic_baseline_add_a_photo_24).into(holder.image);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(product.getImage())
+                    .into(holder.image);
+        }
 
         holder.favorite.setSelected(product.isFavorite());
 
