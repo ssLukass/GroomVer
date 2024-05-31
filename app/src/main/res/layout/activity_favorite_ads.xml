@@ -27,6 +27,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="30sp"
-        android:text="У вас нет ничего в Избранном."/>
+        android:text="@string/You_dont_Have_Anything_In_Your_Favorites."/>
 
 </LinearLayout>

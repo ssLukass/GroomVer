@@ -31,7 +31,7 @@ public class FavoriteProductsActivity extends AppCompatActivity {
 
     private ProductsAdapter adapter;
 
-    private void init() {
+    private void init(){
         db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
     }
 
@@ -43,15 +43,14 @@ public class FavoriteProductsActivity extends AppCompatActivity {
 
         init();
 
-        getFavoritesAd(list -> {
+        getFavoritesAd( list -> {
             if (list.isEmpty()) {
                 binding.recyclerViewProducts.setVisibility(View.GONE);
                 binding.tvFavorite.setVisibility(View.VISIBLE);
             } else {
                 binding.recyclerViewProducts.setVisibility(View.VISIBLE);
-                binding.tvFavorite.setVisibility(View.GONE);
+                binding.tvFavorite.setVisibility(View.GONE);}
 
-            }
             adapter = new ProductsAdapter(
                     FavoriteProductsActivity.this,
                     new ProductClickCallback() {
@@ -67,9 +66,9 @@ public class FavoriteProductsActivity extends AppCompatActivity {
                         @Override
                         public void onFavoriteClick(Product product) {
                             User newUser = Auth.getCurrentUser();
-                            if (product.isFavorite()) {
+                            if(product.isFavorite()){
                                 newUser.addToFavorites(product);
-                            } else {
+                            }else{
                                 newUser.removeFromFavorites(product);
                             }
                             Auth.updateUserInFireBase(newUser);
@@ -87,24 +86,24 @@ public class FavoriteProductsActivity extends AppCompatActivity {
     }
 
 
-    public void getFavoritesAd(OnDataAdsReceivedListener listener) {
+    public void getFavoritesAd(OnDataAdsReceivedListener listener){
         DatabaseReference tRef = db.getReference("products");
 
         ArrayList<String> favoritesKeys = Auth.getCurrentUser().getFavoritesAds();
         ArrayList<Product> resultArr = new ArrayList<>();
 
-        for (String str : favoritesKeys) {
+        for (String str: favoritesKeys) {
             tRef.orderByChild("key").equalTo(str).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot ds : snapshot.getChildren()) {
+                    for (DataSnapshot ds: snapshot.getChildren()) {
                         Product ad = ds.getValue(Product.class);
                         ad.setFavorite(true);
                         resultArr.add(ad);
                         ArrayList<Product> sortedResult = new ArrayList<>();
                         for (int i = 0; i < favoritesKeys.size(); i++) {
                             for (int j = 0; j < resultArr.size(); j++) {
-                                if (favoritesKeys.get(i).equals(resultArr.get(j).getKey())) {
+                                if (favoritesKeys.get(i).equals(resultArr.get(j).getKey())){
                                     sortedResult.add(resultArr.get(j));
                                     break;
                                 }
