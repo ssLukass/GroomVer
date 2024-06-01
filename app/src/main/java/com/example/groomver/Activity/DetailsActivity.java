@@ -100,7 +100,7 @@ public class DetailsActivity extends AppCompatActivity {
                             Glide.with(this).load(R.drawable.profile).into(ivUserAvatar);
                         } else {
                             Glide.with(this)
-                                    .load(product.getImage())
+                                    .load(user.getAvatar())
                                     .into(ivUserAvatar);
                         }
                         tvUserName.setText(user.getUserName());
