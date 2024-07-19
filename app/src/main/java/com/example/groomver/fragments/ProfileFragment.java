@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
 
                                         @Override
                                         public void onLoadCleared(@Nullable Drawable placeholder) {
-                                            // This can be empty
+
                                         }
                                     });
                         } catch (Exception exception) {
@@ -98,7 +98,6 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         init(view);
 
         tvMyProducts.setOnClickListener(v -> {
@@ -110,23 +109,21 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(requireContext(), FavoriteProductsActivity.class);
             startActivity(intent);
         });
-        ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                openGalleryResult.launch(intent);
-            }
-        });
 
+        ivAvatar.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            openGalleryResult.launch(intent);
+        });
 
         Button buttonExit = view.findViewById(R.id.button_exit);
-        buttonExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logoutUser();
-            }
-        });
+        buttonExit.setOnClickListener(v -> logoutUser());
+
+
     }
+
+
+
+
 
     private void uploadImage(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -174,7 +171,7 @@ public class ProfileFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot ds : snapshot.getChildren()) {
                                 User user = ds.getValue(User.class);
-                                listener.onUserReceived(user); // Pass the user object to the listener
+                                listener.onUserReceived(user);
                                 break;
                             }
                         }

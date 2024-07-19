@@ -29,7 +29,6 @@ import androidx.fragment.app.Fragment;
 import com.example.groomver.R;
 import com.example.groomver.interfaces.ImageUploadCallback;
 import com.example.groomver.interfaces.OnDataUserReceivedCallback;
-import com.example.groomver.models.Auth;
 import com.example.groomver.models.Product;
 import com.example.groomver.models.User;
 import com.google.android.gms.tasks.Continuation;
@@ -62,6 +61,7 @@ public class AddFragment extends Fragment {
     private EditText etNameProduct;
     private EditText etDescriptionProduct;
     private EditText etPrice;
+    private EditText etCity;
     private Button bPublish;
 
     private Bitmap productImage;
@@ -102,6 +102,7 @@ public class AddFragment extends Fragment {
 
         init(view);
 
+
         ivProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +124,7 @@ public class AddFragment extends Fragment {
         etNameProduct = view.findViewById(R.id.etProductName);
         etDescriptionProduct = view.findViewById(R.id.etDescriptionProduct);
         etPrice = view.findViewById(R.id.etProductPrice);
+        etCity = view.findViewById(R.id.etProductCity);
         bPublish = view.findViewById(R.id.bPublish);
         db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
         storage = FirebaseStorage.getInstance();
@@ -133,6 +135,7 @@ public class AddFragment extends Fragment {
         String nameProduct = etNameProduct.getText().toString().trim();
         String descriptionProduct = etDescriptionProduct.getText().toString().trim();
         String price = etPrice.getText().toString().trim();
+        String city = etCity.getText().toString().trim();
 
         if (TextUtils.isEmpty(nameProduct)) {
             Toast.makeText(requireContext(), getString(R.string.Name_product), Toast.LENGTH_SHORT).show();
@@ -140,6 +143,8 @@ public class AddFragment extends Fragment {
             Toast.makeText(requireContext(), getString(R.string.Description_product), Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(price)) {
             Toast.makeText(requireContext(), getString(R.string.Price_product), Toast.LENGTH_SHORT).show();
+        }else if (TextUtils.isEmpty(city)) {
+            Toast.makeText(requireContext(), getString(R.string.City), Toast.LENGTH_SHORT).show();
         } else {
             saveAdToDatabase();
         }
@@ -149,12 +154,14 @@ public class AddFragment extends Fragment {
         String nameProduct = etNameProduct.getText().toString().trim();
         String descriptionProduct = etDescriptionProduct.getText().toString().trim();
         String price = etPrice.getText().toString().trim();
+        String city = etCity.getText().toString().trim();
 
         Product myProduct = new Product();
 
         myProduct.setTitle(nameProduct);
         myProduct.setDescription(descriptionProduct);
         myProduct.setPrice(Integer.parseInt(price));
+        myProduct.setCity(city);
 
         Calendar calendar = Calendar.getInstance();
         myProduct.setCreationDate(calendar.getTimeInMillis());

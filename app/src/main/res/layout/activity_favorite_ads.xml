@@ -5,13 +5,28 @@
     android:orientation="vertical"
     >
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProducts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"
+        android:visibility="gone"
         android:clipToPadding="false" />
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/pustota" />
+
+    <TextView
+        android:id="@+id/tv_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="@string/You_dont_Have_Anything_In_Your_Favorites."/>
 
 </LinearLayout>

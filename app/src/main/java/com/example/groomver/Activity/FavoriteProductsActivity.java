@@ -2,13 +2,13 @@ package com.example.groomver.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.groomver.R;
 import com.example.groomver.adapters.ProductsAdapter;
 import com.example.groomver.databinding.ActivityFavoriteAdsBinding;
 import com.example.groomver.interfaces.OnDataAdsReceivedListener;
@@ -17,8 +17,6 @@ import com.example.groomver.interfaces.ProductClickCallback;
 import com.example.groomver.models.Auth;
 import com.example.groomver.models.Product;
 import com.example.groomver.models.User;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +44,13 @@ public class FavoriteProductsActivity extends AppCompatActivity {
         init();
 
         getFavoritesAd( list -> {
+            if (list.isEmpty()) {
+                binding.recyclerViewProducts.setVisibility(View.GONE);
+                binding.tvFavorite.setVisibility(View.VISIBLE);
+            } else {
+                binding.recyclerViewProducts.setVisibility(View.VISIBLE);
+                binding.tvFavorite.setVisibility(View.GONE);}
+
             adapter = new ProductsAdapter(
                     FavoriteProductsActivity.this,
                     new ProductClickCallback() {

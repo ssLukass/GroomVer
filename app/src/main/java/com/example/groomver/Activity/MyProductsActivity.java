@@ -23,7 +23,7 @@ public class MyProductsActivity extends AppCompatActivity {
     private ActivityMyProductsBinding binding;
     private FirebaseDatabase database;
 
-    private void init(){
+    private void init() {
         database = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
     }
 
@@ -38,34 +38,39 @@ public class MyProductsActivity extends AppCompatActivity {
         database.getReference("products")
                 .orderByChild("ownerUID")
                 .equalTo(Auth.getCurrentUser().getUID())
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            ArrayList<Product> productsList = new ArrayList<>();
-                            for(DataSnapshot productSnapshot : snapshot.getChildren()){
-                                Product product = productSnapshot.getValue(Product.class);
-                                productsList.add(product);
-                            }
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList<Product> productsList = new ArrayList<>();
+                        for (DataSnapshot productSnapshot : snapshot.getChildren()) {
+                            Product product = productSnapshot.getValue(Product.class);
+                            productsList.add(product);
+                        }
 
-//                            if(productsList.isEmpty()){
-//
-//                            }
+                        if (productsList.isEmpty()) {
+                            // Если у пользователя нет объявлений
+                            binding.recyclerViewProducts.setVisibility(View.GONE);
+                            binding.tvFavorite.setVisibility(View.VISIBLE);
+                        } else {
+                            // Если у пользователя есть объявления
+                            binding.recyclerViewProducts.setVisibility(View.VISIBLE);
+                            binding.tvFavorite.setVisibility(View.GONE);
 
                             MyProductsAdapter adapter = new MyProductsAdapter(productsList, product -> {
                                 Intent intent = new Intent(MyProductsActivity.this, DetailsActivity.class);
                                 intent.putExtra("PRODUCT_ID", product.getKey());
                                 startActivity(intent);
-                            });
+                            }, MyProductsActivity.this);
 
                             binding.recyclerViewProducts.setAdapter(adapter);
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-
+                    }
+                });
     }
 
     @Override

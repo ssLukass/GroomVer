@@ -2,11 +2,9 @@ package com.example.groomver.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HomeFragment extends Fragment {
     private FirebaseDatabase db;
@@ -39,7 +38,7 @@ public class HomeFragment extends Fragment {
 
     private DatabaseReference products;
 
-    private void init(View view){
+    private void init(View view) {
         db = FirebaseDatabase.getInstance("https://newgroomver-default-rtdb.europe-west1.firebasedatabase.app/");
         rvProducts = view.findViewById(R.id.rv_products);
         products = db.getReference("products");
@@ -61,8 +60,8 @@ public class HomeFragment extends Fragment {
         getProductList(new ProductListCallback() {
             @Override
             public void onListReceived(ArrayList<Product> products) {
-                for(Product product : products){
-                    if(Auth.getCurrentUser().getFavoritesAds().contains(product.getKey())){
+                for (Product product : products) {
+                    if (Auth.getCurrentUser().getFavoritesAds().contains(product.getKey())) {
                         product.setFavorite(true);
                     }
                 }
@@ -77,9 +76,9 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onFavoriteClick(Product product) {
                         User newUser = Auth.getCurrentUser();
-                        if(product.isFavorite()){
+                        if (product.isFavorite()) {
                             newUser.addToFavorites(product);
-                        }else{
+                        } else {
                             newUser.removeFromFavorites(product);
                         }
                         Auth.updateUserInFireBase(newUser);
@@ -94,7 +93,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void getProductList(ProductListCallback callback){
+    private void getProductList(ProductListCallback callback) {
         listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -103,7 +102,7 @@ public class HomeFragment extends Fragment {
                     Product product = ds.getValue(Product.class);
                     products.add(product);
                 }
-
+                Collections.reverse(products);
                 callback.onListReceived(products);
             }
 

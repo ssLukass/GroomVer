@@ -19,7 +19,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
-            android:background="@drawable/profile"
+            android:background="@drawable/ic_baseline_add_a_photo_24"
             />
 
         <LinearLayout
@@ -36,14 +36,14 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Title"/>
+                android:text="@string/Name_product"/>
 
             <TextView
                 android:id="@+id/tvProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="prise"
+                android:text="@string/Price_product"
                 android:textColor="#000000" />
         </LinearLayout>
         <ImageView

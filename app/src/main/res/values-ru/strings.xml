@@ -42,12 +42,10 @@
     <string name="Messages">Сообщения</string>
     <string name="Profile">Профиль</string>
 
-    <string name="nav_open">Open</string>
-    <string name="nav_close">Close</string>
-
     <!-- Profile-->
     <string name="Select_A_Photo_From_The_Gallery">Выберите фотографию из галереи</string>
     <string name="Edit_A_Profile">Редактировать профиль</string>
+    <string name="Rating">Рейтинг:</string>
     <string name="Favourites">Мои избранные</string>
     <string name="Ads">Мои объявления</string>
     <string name="Exit">Выход из аккаунта</string>

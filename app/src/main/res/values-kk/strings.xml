@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">GroomVer</string>
+
+    <string name="Join_account">Тіркелу</string>
+    <string name="Entrance">Кіру</string>
+
+    <string name="Login">Электронды пошта</string>
+    <string name="Password">Құпия сөз</string>
+    <string name="Forget_password">Құпия сөзді ұмыттыңыз ба?</string>
+    <string name="Enter">Кіру</string>
+    <string name="Register">Тіркелу</string>
+    <string name="Name_user">Пайдаланушы аты</string>
+    <string name="Create_password">Құпия сөзді құрыңыз</string>
+    <string name="Repeat_password">Құпия сөзді қайталаңыз</string>
+    <string name="Alert_create_account">Аккаунт жасау</string>
+    <string name="Alert_please_wait">Күте тұрыңыз...</string>
+    <string name="Create_accout_complite">Аккаунт сәтті жасалды</string>
+    <string name="Error">Қате</string>
+    <string name="Enter_Email">"Электронды пошта" жолын толтырыңыз</string>
+    <string name="Enter_User_Name">Пайдаланушы атын ойлаңыз</string>
+    <string name="Enter_Create_Password">"Құпия сөзді құрыңыз" жолын толтырыңыз</string>
+    <string name="Password_uncorrect">Құпия сөздер сәйкес келмейді</string>
+    <string name="Enter_Password">Құпия сөзді енгізіңіз</string>
+    <string name="Not_new_user_name">Осы атымды пайдаланушы уже бар</string>
+    <string name="Not_New_Email">Осы пошта адресті пайдаланушы уже бар</string>
+
+    <string name="Weak_Password">Құпия сөз қамтылмайды, ең азы 6 таңба болуы керек</string>
+    <string name="Undefined_Error">Белгісіз қате</string>
+    <string name="Invalid_Email">Қате Email</string>
+    <string name="Incorrect_Email_Or_Password">Қате Email немесе құпия сөз</string>
+
+    <string name="I_Dont_Have_Account">Менде аккаунт жоқ</string>
+    <string name="I_Have_Account">Менде аккаунт бар</string>
+
+    <string name="Password_Recovery">Құпия сөзді қалпына келтіру</string>
+    <string name="Send_An_Email">Пішін жіберу</string>
+
+    <!-- Bottom Navigation View-->
+    <string name="Home">Басты бет</string>
+    <string name="Search">Іздеу</string>
+    <string name="Add">Қосу</string>
+    <string name="Messages">Хабарламалар</string>
+    <string name="Profile">Профиль</string>
+
+    <!-- Profile-->
+    <string name="Select_A_Photo_From_The_Gallery">Галереядан фотосурет таңдау</string>
+    <string name="Edit_A_Profile">Профильді өңдеу</string>
+    <string name="Favourites">Менің таңдауларым</string>
+    <string name="Ads">Менің жарналарым</string>
+    <string name="Exit">Аккаунттан шығу</string>
+    <string name="My_ads">Қазірша сіз ештеңе жарналдарды жариялаған жоқсыз</string>
+    <string name="Language">Қаз | Рус</string>
+
+    <string name="Email">Пошта</string>
+
+
+    <!--Add-->
+    <string name="Name_product">Тауардың атауы</string>
+    <string name="Description_product">Тауардың сипаттамасы</string>
+    <string name="Price_product">Тауардың бағасы</string>
+    <string name="City">Қала</string>
+    <string name="Back">Артқа</string>
+    <string name="Publish">Жариялау</string>
+    <string name="Add_Photo">Фотосурет қосыңыз</string>
+
+
+    <string name="Product_publish">Өнім жарияланды</string>
+    <string name="Error_product_publish">Өнімді жариялау кезіндегі қате</string>
+
+
+    <string name="Write_A_Message">Хабарлама жазу</string>
+    <string name="User_message">Сообщение пользователя</string>
+    <string name="My_message">Пайдаланушының хабарламасы</string>
+    <string name="Send">Жіберу</string>
+    <string name="Message">Хабар</string>
+
+    <string name="Data">Құрылған күні:</string>
+
+    <string name="Wellcome_Main">GroomVer - ге қош келдіңіз</string>
+
+
+    <string name="Instructions_For_Password_Reset_Have_Been_Sent_To_Your_Email">
+        Құпия сөзді қалпына келтіру нұсқаулары emai-ге жіберілді</string>
+    <string name="An_Error_Occurred_When_Sending_Instructions_To_Reset_The_Password_Please_Try_Again.">
+        Құпия сөзді қалпына келтіру нұсқауларын жіберу кезінде қате пайда болды. Қайталап көріңіз</string>
+
+
+    <!--AlertDialog-->
+    <string name="Delete_Ad">Жарнаманы жою</string>
+    <string name="Are_You_Sure_You_Want_To_Delete_This_Ad">Сіз бұл жарнаманы жойғыңыз келетініне сенімдісіз бе?</string>
+    <string name="Yes">Иә</string>
+    <string name="No">Жоқ</string>
+
+
+    <!--The rest-->
+    <string name="Today">Бүгін</string>
+    <string name="Its_Still_Empty_Here">Бұл жерде әлі бос.</string>
+    <string name="You_dont_Have_Anything_In_Your_Favorites.">Сізде таңдаулылар туралы ештеңе жоқ.</string>
+</resources>
