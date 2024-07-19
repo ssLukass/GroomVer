@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:id="@+id/group_main" android:checkableBehavior="all">
+        <item
+            android:id="@+id/page_home"
+            android:title="@string/Home"
+            android:icon="@drawable/home" />
+
+        <item
+            android:id="@+id/page_seatch"
+            android:title="@string/Search"
+            android:icon="@drawable/search" />
+
+        <item
+            android:id="@+id/page_add"
+            android:title="@string/Add"
+            android:icon="@drawable/add"/>
+
+        <item
+            android:id="@+id/page_masseges"
+            android:title="@string/Messages"
+            android:icon="@drawable/chat"/>
+
+        <item
+            android:id="@+id/page_profile"
+            android:title="@string/Profile"
+            android:icon="@drawable/profile"/>
+    </group>
+
+    <item android:title="Другое">
+        <menu>
+            <item android:title="О разработчике"
+                android:id="@+id/about"
+                android:checked="false"/>
+        </menu>
+    </item>
+
+    <item android:title="Аккаунт">
+        <menu>
+            <item android:title="Выйти"
+                android:id="@+id/sign_out"
+                android:checked="false"/>
+        </menu>
+    </item>
+
+</menu>
